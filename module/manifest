@@ -1,0 +1,68 @@
+JVMLevel=
+LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00378\:0.47
+author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
+categories=SingleCell
+commandLine=python run_scanpy_module.py --data.file=<data.file> --example.parameter=<example.parameter> <example.optional.file>
+
+cpuType=any
+description=Scanpy preprocessing of an h5 single cell RNASeq dataset
+fileFormat=h5
+language=any
+minGenePatternVersion=3.9.13
+name=ScanpyPreprocess
+os=any
+job.docker.image=genepattern/scanpypreprocess\:latest
+
+job.cpuCount=4
+
+p1_MODE=IN
+p1_TYPE=FILE
+p1_default_value=
+p1_description=A h5 file containing the single cell data
+p1_fileFormat=h5
+p1_flag=
+p1_name=data.file
+p1_numValues=1..1
+p1_optional=
+p1_prefix=
+p1_prefix_when_specified=
+p1_type=java.io.File
+p1_value=
+
+p2_MODE=
+p2_TYPE=TEXT
+p2_default_value=10
+p2_description=Example Parameter
+p2_fileFormat=
+p2_flag=
+p2_name=example.parameter
+p2_numValues=1..1
+p2_optional=
+p2_prefix=
+p2_prefix_when_specified=
+p2_type=java.lang.String
+p2_value=
+
+p3_MODE=IN
+p3_TYPE=FILE
+p3_default_value=
+p3_description=An example optional file parameter
+p3_fileFormat=
+p3_flag=
+p3_name=example.optional.file
+p3_numValues=0..1
+p3_optional=on
+p3_prefix=
+p3_prefix_when_specified=--example.optional.file
+p3_type=java.io.File
+p3_value=
+
+privacy=public
+publicationDate=01/14/2019 11\:23 
+quality=${quality.level}
+requiredPatchLSIDs=
+requiredPatchURLs=
+taskDoc=doc.html
+taskType=SingleCell
+userid=ted
+version=Working revision from Gevaert lab git repo on 10/16/18 

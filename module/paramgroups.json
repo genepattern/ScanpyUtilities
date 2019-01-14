@@ -1,0 +1,7 @@
+[{name: "Input data", 
+  parameters: ["data.file"]}, 
+{name: "Example parameters", hidden: false, 
+  parameters: ["example.parameter", "example.optional.file"]}
+]
+
+
