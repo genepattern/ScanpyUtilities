@@ -1,7 +1,12 @@
-[{name: "Input data", 
-  parameters: ["data.file"]}, 
-{name: "Example parameters", hidden: false, 
-  parameters: ["example.parameter", "example.optional.file"]}
+[{name: "Input and Output", 
+  parameters: ["data.file", "output.filename"]}, 
+{name: "Annotation", hidden: false, 
+  parameters: ["annotate", "group.name"]},
+{name: "Filtering", hidden: false,        
+  parameters: ["filterCells", "min.counts",  "min.cells", "filterGenes", "min.genes"]},
+{name: "Batch Correction & Normalization", hidden: false,        
+  parameters: ["batch.correct.and.normalize"]}
+
 ]
 
 

@@ -1,8 +1,8 @@
 JVMLevel=
-LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00378\:0.47
+LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.01
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
-commandLine=python run_scanpy_module.py --data.file=<data.file> --example.parameter=<example.parameter> <example.optional.file>
+commandLine=python /build/run_scanpy_module.py  --data.file=<data.file> --output.filename=<output.filename> --min.counts=<min.counts> --max.counts=<max.counts> --group.name=<group.name> --annotate=<annotate> --filter=<filter> --batch.correct.and.normalize=<batch.correct.and.normalize>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -11,8 +11,8 @@ language=any
 minGenePatternVersion=3.9.13
 name=ScanpyPreprocess
 os=any
-job.docker.image=genepattern/scanpypreprocess\:latest
-
+#job.docker.image=genepattern/scanpypreprocess\:latest
+job.docker.image=genepattern/scanpypreprocess
 job.cpuCount=4
 
 p1_MODE=IN
@@ -32,10 +32,10 @@ p1_value=
 p2_MODE=
 p2_TYPE=TEXT
 p2_default_value=10
-p2_description=Example Parameter
+p2_description=Filter out samples with fewer than Min Counts
 p2_fileFormat=
 p2_flag=
-p2_name=example.parameter
+p2_name=min.counts
 p2_numValues=1..1
 p2_optional=
 p2_prefix=
@@ -43,19 +43,92 @@ p2_prefix_when_specified=
 p2_type=java.lang.String
 p2_value=
 
-p3_MODE=IN
-p3_TYPE=FILE
-p3_default_value=
-p3_description=An example optional file parameter
+p3_MODE=
+p3_TYPE=TEXT
+p3_default_value=999999999
+p3_description=Filter out samples with greater than Max Counts
 p3_fileFormat=
 p3_flag=
-p3_name=example.optional.file
-p3_numValues=0..1
-p3_optional=on
+p3_name=max.counts
+p3_numValues=1..1
+p3_optional=
 p3_prefix=
-p3_prefix_when_specified=--example.optional.file
-p3_type=java.io.File
+p3_prefix_when_specified=
+p3_type=java.lang.String
 p3_value=
+
+p4_MODE=
+p4_TYPE=TEXT
+p4_default_value=<data.file_basename>_Annotated
+p4_description=Base filename for the output file
+p4_fileFormat=
+p4_flag=
+p4_name=output.filename
+p4_numValues=1..1
+p4_optional=
+p4_prefix=
+p4_prefix_when_specified=
+p4_type=java.lang.String
+p4_value=
+
+p5_MODE=
+p5_TYPE=TEXT
+p5_default_value=genome
+p5_description=Group name to use in the hdf5 file
+p5_fileFormat=
+p5_flag=
+p5_name=group.name
+p5_numValues=1..1
+p5_optional=
+p5_prefix=
+p5_prefix_when_specified=
+p5_type=java.lang.String
+p5_value=
+
+p6_MODE=
+p6_TYPE=TEXT
+p6_default_value=False
+p6_description=Whether to annotate the dataset True/False
+p6_fileFormat=
+p6_flag=
+p6_name=annotate
+p6_numValues=1..1
+p6_optional=
+p6_prefix=
+p6_prefix_when_specified=
+p6_type=java.lang.String
+p6_value=False\=no;True\=yes
+
+p7_MODE=
+p7_TYPE=TEXT
+p7_default_value=False
+p7_description=Whether to filter the dataset True/False. Filtering is performed after annotation if annotation is True.
+p7_fileFormat=
+p7_flag=
+p7_name=filter
+p7_numValues=1..1
+p7_optional=
+p7_prefix=
+p7_prefix_when_specified=
+p7_type=java.lang.String
+p7_value=False\=no;True\=yes
+
+p8_MODE=
+p8_TYPE=TEXT
+p8_default_value=False
+p8_description=Whether to perform batch correction and normalization True/False.  This step is performed after filtering if filtering is on
+p8_fileFormat=
+p8_flag=
+p8_name=batch.correct.and.normalize
+p8_numValues=1..1
+p8_optional=
+p8_prefix=
+p8_prefix_when_specified=
+p8_type=java.lang.String
+p8_value=False\=no;True\=yes
+
+
+
 
 privacy=public
 publicationDate=01/14/2019 11\:23 

@@ -23,7 +23,7 @@ RUN   apt-get install libhdf5-serial-dev --yes
 ADD requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
 
-COPY module/run_scanpy_module.py /usr/local/build/run_scanpy_module.py
+COPY module/* /build/
 
 
 
