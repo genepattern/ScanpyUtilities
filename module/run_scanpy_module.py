@@ -29,18 +29,15 @@ parser.add_argument("-mnl", "--min.cells", dest="min_cells",
                     help="Filter out samples with less than min cells",
                     default='20')
 
-parser.add_argument("-mxc", "--max.counts", dest="min_counts",
+parser.add_argument("-mxc", "--max.counts", dest="max_counts",
                     type=check_positive,
-                    help="Filter out samples with more than Max Counts",
-                    default='7500000')
-parser.add_argument("-mxg", "--max.genes", dest="min_genes",
+                    help="Filter out samples with more than Max Counts")
+parser.add_argument("-mxg", "--max.genes", dest="max_genes",
                     type=check_positive,
-                    help="Filter out samples with more than min genes",
-                    default='42000')
-parser.add_argument("-mxl", "--max.cells", dest="min_cells",
+                    help="Filter out samples with more than max genes")
+parser.add_argument("-mxl", "--max.cells", dest="max_cells",
                     type=check_positive,
-                    help="Filter out samples with more than min cells",
-                    default='2000000')
+                    help="Filter out samples with more than max cells")
 
 
 parser.add_argument("-o", "--output.filename", dest="output_filename",
@@ -89,7 +86,18 @@ print(args)
 #print("Now getting work done.")
 print("~~~~~~~~~~~~~~~~~~~~~~")
 
-adata = read10xH5(args.data_file, 'GRCh38')
+max_counts = None
+if args.max_counts:
+   max_counts = args.max_counts
+
+if args.max_cells:
+   max_cells = args.max_cells
+
+if args.max_genes:
+   max_genes = args.max_genes
+
+
+   adata = read10xH5(args.data_file, 'GRCh38')
 
 
 if (args.annotate):
@@ -98,11 +106,11 @@ if (args.annotate):
 
 if (args.filterCells):
     print("Filtering cells")
-    filterCells(adata,  min_counts=args.min_counts, min_genes=args.min_genes)
+    filterCells(adata,  min_counts=args.min_counts, min_genes=args.min_genes, max_counts=max_counts, max_genes=max_genes)
 
 if (args.filterGenes):
     print("Filtering genes")
-    filterGenes(adata, min_cells=args.min_cells)
+    filterGenes(adata, min_cells=args.min_cells, max_cells = max_cells)
 
 
 fullyFilteredFile = args.output_filename + "_preprocessed.h5"
