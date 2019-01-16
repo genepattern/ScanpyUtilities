@@ -1,17 +1,9 @@
 import h5py
 import scanpy.api as sc
 import numpy as np
-import scipy as sp
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib import rcParams
-from matplotlib import colors
-import seaborn as sb
 import sys
 import os
 from scipy.sparse import csr_matrix
-
-sc.logging.print_versions()
 
 def addDataToGroup(group, name, data):
     group.create_dataset(name, data=data, compression='gzip',
@@ -25,7 +17,7 @@ def read10xH5(in_file, genome):
     extra_keys = [x for x in all_keys if x not in keys_10x]
     for key in extra_keys:
         adata.obs[key] = hf[genome][key].value
-    return adata    
+    return adata
 
 def write10xH5(adata, out_file, genome):
     if os.path.isfile(out_file):
@@ -72,4 +64,3 @@ def filterGenes(adata, min_counts=None, min_cells=None, max_counts=None, max_cel
         sc.pp.filter_genes(adata, max_counts=max_counts)
     if max_cells is not None:
         sc.pp.filter_genes(adata, max_cells=max_cells)
-
