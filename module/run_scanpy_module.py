@@ -91,7 +91,7 @@ if (args.filterCells):
     filteredFile = args.output_filename[:-3] + "_cellFiltered.h5"
     filterCells(annotatedFile, 'GRCh38', filteredFile, min_counts=args.min_counts, min_genes=args.min_genes)
 
-fullyFilteredFile = none
+fullyFilteredFile = None
 if (args.filterGenes):
     print("filteringGenes")
     if (filteredFile == None):
