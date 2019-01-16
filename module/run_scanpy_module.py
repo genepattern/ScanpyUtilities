@@ -87,6 +87,9 @@ print(args)
 print("~~~~~~~~~~~~~~~~~~~~~~")
 
 max_counts = None
+max_cells = None
+max_genes = None
+
 if args.max_counts:
    max_counts = args.max_counts
 
@@ -97,7 +100,7 @@ if args.max_genes:
    max_genes = args.max_genes
 
 
-   adata = read10xH5(args.data_file, 'GRCh38')
+adata = read10xH5(args.data_file, 'GRCh38')
 
 
 if (args.annotate):
