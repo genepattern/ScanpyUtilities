@@ -1,9 +1,11 @@
 [{name: "Input and Output", 
-  parameters: ["data.file", "output.filename"]}, 
+  parameters: ["data.file", "group.name", "output.filename"]}, 
 {name: "Annotation", hidden: false, 
-  parameters: ["annotate", "group.name"]},
-{name: "Filtering", hidden: false,        
-  parameters: ["filter.cells", "min.counts", "max.counts",  "min.cells", "max.cells","filter.genes", "min.genes", "max.genes"]},
+  parameters: ["annotate"]},
+{name: "Cell Filtering", hidden: false,        
+  parameters: ["cells.min.counts", "cells.max.counts",  "cells.min.genes", "cells.max.genes"]},
+{name: "Gene Filtering", hidden: false,        
+  parameters: ["genes.min.counts", "genes.max.counts",  "genes.min.cells", "genes.max.cells"]},
 {name: "Batch Correction & Normalization", hidden: false,        
   parameters: ["batch.correct.and.normalize"]}
 

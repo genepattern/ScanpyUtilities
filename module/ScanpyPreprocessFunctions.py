@@ -64,3 +64,14 @@ def filterGenes(adata, min_counts=None, min_cells=None, max_counts=None, max_cel
         sc.pp.filter_genes(adata, max_counts=max_counts)
     if max_cells is not None:
         sc.pp.filter_genes(adata, max_cells=max_cells)
+
+def findHighlyVariableGenes(adata, n_top_genes, flavor='cell_ranger', log=False):
+    sc.pp.filter_genes_dispersion(adata, flavor=flavor, n_top_genes=n_top_genes,
+        log=log, subset=False)
+   
+def writeHighlyVariableSubset(adata, out_file, genome):
+    if 'highly_variable' not in adata.var.keys():
+        print("no field for highly variable genes")
+        sys.exit()
+    subset =  adata[:, adata.var['highly_variable']]
+    write10xH5(subset, out_file, genome)

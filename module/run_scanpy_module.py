@@ -12,55 +12,54 @@ def check_positive(value):
 
 parser = argparse.ArgumentParser()
 # ~~~~Module Required Arguments~~~~~ #
-parser.add_argument("-f", "--data.file",
-                    dest="data_file",
+parser.add_argument("-f", "--data.file", dest="data_file",
                     type=str,
-                    help="H5 Data file of scRNASeq data")
-parser.add_argument("-mnc", "--min.counts", dest="min_counts",
-                    type=check_positive,
-                    help="Filter out samples with fewer than Min Counts",
-                    default='750')
-parser.add_argument("-mng", "--min.genes", dest="min_genes",
-                    type=check_positive,
-                    help="Filter out samples with less than min genes",
-                    default='180')
-parser.add_argument("-mnl", "--min.cells", dest="min_cells",
-                    type=check_positive,
-                    help="Filter out samples with less than min cells",
-                    default='20')
+                    help="A 10x formatted, h5 file containing the single cell data")
 
-parser.add_argument("-mxc", "--max.counts", dest="max_counts",
-                    type=check_positive,
-                    help="Filter out samples with more than Max Counts")
-parser.add_argument("-mxg", "--max.genes", dest="max_genes",
-                    type=check_positive,
-                    help="Filter out samples with more than max genes")
-parser.add_argument("-mxl", "--max.cells", dest="max_cells",
-                    type=check_positive,
-                    help="Filter out samples with more than max cells")
-
+parser.add_argument("-g", "--group.name", dest="group_name",
+                    type=str,
+                    help="Group name to use in the hdf5 file")
 
 parser.add_argument("-o", "--output.filename", dest="output_filename",
                     type=str,
-                    help="The basename to use for output file",
+                    help="Base filename for the output file",
                     default='OUT')
-parser.add_argument("-g", "--group.name", dest="group_name",
-                    type=str,
-                    help="The group name in the hdf5 file to use",
-                    default='genome')
 
 parser.add_argument("-a", "--annotate",
                     help="Whether to annotate the dataset True/False",
                     type=distutils.util.strtobool)
 
-parser.add_argument("-fc", "--filterCells",
-                    help="Whether to filter cells.",
-                    type=distutils.util.strtobool)
+parser.add_argument("-cmnc", "--cells.min.counts", dest="cells_min_counts",
+                    type=check_positive,
+                    help="Filter out cells with fewer total counts than min counts")
 
-parser.add_argument("-fg", "--filterGenes",
-                    help="Whether to filter genes.",
-                    type=distutils.util.strtobool)
+parser.add_argument("-cmxc", "--cells.max.counts", dest="cells_max_counts",
+                    type=check_positive,
+                    help="Filter out cells with more total counts than max counts")
 
+parser.add_argument("-cmng", "--cells.min.genes", dest="cells_min_genes",
+                    type=check_positive,
+                    help="Filter out cells with fewer than min genes expressed")
+
+parser.add_argument("-cmxg", "--cells.max.genes", dest="cells_max_genes",
+                    type=check_positive,
+                    help="Filter out cells with more than max genes expressed")
+
+parser.add_argument("-gmnc", "--genes.min.counts", dest="genes_min_counts",
+                    type=check_positive,
+                    help="Filter out genes with fewer total counts than min counts")
+
+parser.add_argument("-gmxc", "--genes.max.counts", dest="genes_max_counts",
+                    type=check_positive,
+                    help="Filter out genes with more total counts than max counts")
+
+parser.add_argument("-gmnc", "--genes.min.cells", dest="genes_min_cells",
+                    type=check_positive,
+                    help="Filter out genes expressed in fewer than min cells")
+
+parser.add_argument("-gmxc", "--genes.max.cells", dest="genes_max_cells",
+                    type=check_positive,
+                    help="Filter out genes expressed in more than max cells")
 
 parser.add_argument("-bcn", "--batch.correct.and.normalize", dest="batch_correct_and_normalize",
                     help="Whether to perform batch correction and normalization True/False.  This step is performed after filtering if filtering is true",
@@ -86,35 +85,28 @@ print(args)
 #print("Now getting work done.")
 print("~~~~~~~~~~~~~~~~~~~~~~")
 
-max_counts = None
-max_cells = None
-max_genes = None
+cells_min_counts = None if not args.cells_min_counts else args.cells_min_counts
+cells_max_counts = None if not args.cells_max_counts else args.cells_max_counts
+cells_min_genes  = None if not args.cells_min_genes  else args.cells_min_genes
+cells_max_genes  = None if not args.cells_max_genes  else args.cells_max_genes
+genes_min_counts = None if not args.genes_min_counts else args.genes_min_counts
+genes_max_counts = None if not args.genes_max_counts else args.genes_max_counts
+genes_min_cells  = None if not args.genes_min_cells  else args.genes_min_cells
+genes_max_cells  = None if not args.genes_max_cells  else args.genes_max_cells
 
-if args.max_counts:
-   max_counts = args.max_counts
-
-if args.max_cells:
-   max_cells = args.max_cells
-
-if args.max_genes:
-   max_genes = args.max_genes
-
-
-adata = read10xH5(args.data_file, 'GRCh38')
-
+adata = read10xH5(args.data_file, args.group_name)
 
 if (args.annotate):
     print("Performing annotation")
-    annotateData(adata )
+    annotateData(adata)
 
-if (args.filterCells):
+if (any([cells_min_counts, cells_max_counts, cells_min_genes, cells_max_genes]):
     print("Filtering cells")
-    filterCells(adata,  min_counts=args.min_counts, min_genes=args.min_genes, max_counts=max_counts, max_genes=max_genes)
+    filterCells(adata, min_counts=cells_min_counts, max_counts=cells_max_counts, min_genes=cells_min_genes, max_genes=cells_max_genes)
 
-if (args.filterGenes):
+if (any([genes_min_counts, genes_max_counts, genes_min_cells, genes_max_cells]):
     print("Filtering genes")
-    filterGenes(adata, min_cells=args.min_cells, max_cells = max_cells)
-
+    filterGenes(adata, min_counts=genes_min_counts, max_counts=genes_max_counts, min_cells=genes_min_cells, max_cells=genes_max_cells)
 
 fullyFilteredFile = args.output_filename + "_preprocessed.h5"
 print("Done - last output is " + fullyFilteredFile)

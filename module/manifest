@@ -2,7 +2,7 @@ JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.01
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
-commandLine=python /build/run_scanpy_module.py  --data.file=<data.file> --output.filename=<output.filename> --min.counts=<min.counts> --min.genes=<min.genes> --min.cells=<min.cells>  --group.name=<group.name> --annotate=<annotate> --filterCells=<filter.cells> --filterGenes=<filter.genes> --batch.correct.and.normalize=<batch.correct.and.normalize> <max.counts> <max.genes> <max.cells>
+commandLine=python /build/run_scanpy_module.py  --data.file=<data.file> --group.name=<group.name> --output.filename=<output.filename> --annotate=<annotate> --batch.correct.and.normalize=<batch.correct.and.normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -19,7 +19,7 @@ job.memory=16 Gb
 p1_MODE=IN
 p1_TYPE=FILE
 p1_default_value=
-p1_description=A h5 file containing the single cell data
+p1_description=A 10x formatted, h5 file containing the single cell data
 p1_fileFormat=h5
 p1_flag=
 p1_name=data.file
@@ -30,13 +30,14 @@ p1_prefix_when_specified=
 p1_type=java.io.File
 p1_value=
 
+
 p2_MODE=
 p2_TYPE=TEXT
-p2_default_value=750
-p2_description=Filter out samples with fewer than Min Counts
+p2_default_value=
+p2_description=Group name to use in the hdf5 file
 p2_fileFormat=
 p2_flag=
-p2_name=min.counts
+p2_name=group.name
 p2_numValues=1..1
 p2_optional=
 p2_prefix=
@@ -44,13 +45,14 @@ p2_prefix_when_specified=
 p2_type=java.lang.String
 p2_value=
 
+
 p3_MODE=
 p3_TYPE=TEXT
-p3_default_value=20
-p3_description=Filter out 
+p3_default_value=<data.file_basename>
+p3_description=Base filename for the output file
 p3_fileFormat=
 p3_flag=
-p3_name=min.cells
+p3_name=output.filename
 p3_numValues=1..1
 p3_optional=
 p3_prefix=
@@ -58,145 +60,156 @@ p3_prefix_when_specified=
 p3_type=java.lang.String
 p3_value=
 
+
 p4_MODE=
 p4_TYPE=TEXT
-p4_default_value=<data.file_basename>
-p4_description=Base filename for the output file
+p4_default_value=False
+p4_description=Whether to annotate the dataset True/False
 p4_fileFormat=
 p4_flag=
-p4_name=output.filename
+p4_name=annotate
 p4_numValues=1..1
 p4_optional=
 p4_prefix=
 p4_prefix_when_specified=
 p4_type=java.lang.String
-p4_value=
+p4_value=False\=no;True\=yes
+
 
 p5_MODE=
 p5_TYPE=TEXT
-p5_default_value=gene
-p5_description=Group name to use in the hdf5 file
+p5_default_value=
+p5_description=Filter out cells with fewer total counts than min counts
 p5_fileFormat=
 p5_flag=
-p5_name=group.name
+p5_name=cells.min.counts
 p5_numValues=1..1
-p5_optional=
+p5_optional=on
 p5_prefix=
-p5_prefix_when_specified=
+p5_prefix_when_specified=--cells.min.counts=
 p5_type=java.lang.String
 p5_value=
 
+
 p6_MODE=
 p6_TYPE=TEXT
-p6_default_value=False
-p6_description=Whether to annotate the dataset True/False
+p6_default_value=
+p6_description=Filter out cells with more total counts than max counts
 p6_fileFormat=
 p6_flag=
-p6_name=annotate
-p6_numValues=1..1
-p6_optional=
+p6_name=cells.max.counts
+p6_numValues=0..1
+p6_optional=on
 p6_prefix=
-p6_prefix_when_specified=
+p6_prefix_when_specified=--cells.max.counts=
 p6_type=java.lang.String
-p6_value=False\=no;True\=yes
+p6_value=
+
 
 p7_MODE=
 p7_TYPE=TEXT
-p7_default_value=False
-p7_description=Whether to filter the cells
+p7_default_value=
+p7_description=Filter out cells with fewer than min genes expressed
 p7_fileFormat=
 p7_flag=
-p7_name=filter.cells
+p7_name=cells.min.genes
 p7_numValues=1..1
-p7_optional=
+p7_optional=on
 p7_prefix=
-p7_prefix_when_specified=
+p7_prefix_when_specified=--cells.min.genes
 p7_type=java.lang.String
-p7_value=False\=no;True\=yes
+p7_value=
+
 
 p8_MODE=
 p8_TYPE=TEXT
-p8_default_value=False
-p8_description=Whether to perform batch correction and normalization True/False.  This step is performed after filtering if filtering is on
+p8_default_value=
+p8_description=Filter out cells with more than max genes expressed
 p8_fileFormat=
 p8_flag=
-p8_name=batch.correct.and.normalize
-p8_numValues=1..1
-p8_optional=
+p8_name=cells.max.genes
+p8_numValues=0..1
+p8_optional=on
 p8_prefix=
-p8_prefix_when_specified=
+p8_prefix_when_specified=--cells.max.genes=
 p8_type=java.lang.String
-p8_value=False\=no;True\=yes
+p8_value=
+
 
 p9_MODE=
 p9_TYPE=TEXT
-p9_default_value=False
-p9_description=Whether to filter the  genes
+p9_default_value=
+p9_description=Filter out genes with fewer total counts than min counts
 p9_fileFormat=
 p9_flag=
-p9_name=filter.genes
+p9_name=genes.min.counts
 p9_numValues=1..1
-p9_optional=
+p9_optional=on
 p9_prefix=
-p9_prefix_when_specified=
+p9_prefix_when_specified=--genes.min.counts=
 p9_type=java.lang.String
-p9_value=False\=no;True\=yes
+p9_value=
+
 
 p10_MODE=
 p10_TYPE=TEXT
-p10_default_value=180
-p10_description=Filter out genes < min.genes
+p10_default_value=
+p10_description=Filter out genes with more total counts than max counts
 p10_fileFormat=
 p10_flag=
-p10_name=min.genes
-p10_numValues=1..1
-p10_optional=
+p10_name=genes.max.counts
+p10_numValues=0..1
+p10_optional=on
 p10_prefix=
-p10_prefix_when_specified=
+p10_prefix_when_specified=--genes.max.counts=
 p10_type=java.lang.String
 p10_value=
+
 
 p11_MODE=
 p11_TYPE=TEXT
 p11_default_value=
-p11_description=Optional, leave blank to skip. Filter out genes > max genes.genes
+p11_description=Filter out genes expressed in fewer than min cells
 p11_fileFormat=
 p11_flag=
-p11_name=max.genes
-p11_numValues=0..1
+p11_name=genes.min.cells
+p11_numValues=1..1
 p11_optional=on
 p11_prefix=
-p11_prefix_when_specified=--max.genes=
+p11_prefix_when_specified=--genes.min.cells=
 p11_type=java.lang.String
 p11_value=
+
 
 p12_MODE=
 p12_TYPE=TEXT
 p12_default_value=
-p12_description=Optional, leave blank to skip. Filter out counts  > max counts
+p12_description=Filter out genes expressed in more than max cells
 p12_fileFormat=
 p12_flag=
-p12_name=max.counts
+p12_name=genes.max.cells
 p12_numValues=0..1
 p12_optional=on
 p12_prefix=
-p12_prefix_when_specified=--max.counts=
+p12_prefix_when_specified=--genes.max.cells=
 p12_type=java.lang.String
 p12_value=
 
+
 p13_MODE=
 p13_TYPE=TEXT
-p13_default_value=
-p13_description=Optional, leave blank to skip. Filter out cells > max cells
+p13_default_value=False
+p13_description=Whether to perform batch correction and normalization True/False.  This step is performed after filtering if filtering is on
 p13_fileFormat=
 p13_flag=
-p13_name=max.cells
-p13_numValues=0..1
-p13_optional=on
+p13_name=batch.correct.and.normalize
+p13_numValues=1..1
+p13_optional=
 p13_prefix=
-p13_prefix_when_specified=--max.cells=
+p13_prefix_when_specified=
 p13_type=java.lang.String
-p13_value=
+p13_value=False\=no;True\=yes
+
 
 
 
