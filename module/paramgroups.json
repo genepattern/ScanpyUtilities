@@ -3,7 +3,7 @@
 {name: "Annotation", hidden: false, 
   parameters: ["annotate", "group.name"]},
 {name: "Filtering", hidden: false,        
-  parameters: ["filter.cells", "min.counts",  "min.cells", "filter.genes", "min.genes"]},
+  parameters: ["filter.cells", "min.counts", "max.counts",  "min.cells", "max.cells","filter.genes", "min.genes", "max.genes"]},
 {name: "Batch Correction & Normalization", hidden: false,        
   parameters: ["batch.correct.and.normalize"]}
 
