@@ -20,14 +20,25 @@ parser.add_argument("-mnc", "--min.counts", dest="min_counts",
                     type=check_positive,
                     help="Filter out samples with fewer than Min Counts",
                     default='750')
-parser.add_argument("-mxc", "--min.genes", dest="min_genes",
+parser.add_argument("-mng", "--min.genes", dest="min_genes",
                     type=check_positive,
                     help="Filter out samples with less than min genes",
                     default='180')
 parser.add_argument("-mnl", "--min.cells", dest="min_cells",
                     type=check_positive,
-                    help="Filter out samples with less than min genes",
+                    help="Filter out samples with less than min cells",
                     default='20')
+
+parser.add_argument("-mxc", "--max.counts", dest="max_counts",
+                    type=check_positive,
+                    help="Filter out samples with more than Max Counts")
+parser.add_argument("-mxg", "--max.genes", dest="max_genes",
+                    type=check_positive,
+                    help="Filter out samples with more than max genes")
+parser.add_argument("-mxl", "--max.cells", dest="max_cells",
+                    type=check_positive,
+                    help="Filter out samples with more than max cells")
+
 
 parser.add_argument("-o", "--output.filename", dest="output_filename",
                     type=str,
@@ -75,32 +86,37 @@ print(args)
 #print("Now getting work done.")
 print("~~~~~~~~~~~~~~~~~~~~~~")
 
-annotatedFile = None
-filteredFile = None
+max_counts = None
+max_cells = None
+max_genes = None
+
+if args.max_counts:
+   max_counts = args.max_counts
+
+if args.max_cells:
+   max_cells = args.max_cells
+
+if args.max_genes:
+   max_genes = args.max_genes
+
+
+adata = read10xH5(args.data_file, 'GRCh38')
+
+
 if (args.annotate):
     print("Performing annotation")
-    annotatedFile = args.output_filename[:-3] + "_annotated.h5"
-    annotateData(args.data_file, 'GRCh38', annotatedFile)
+    annotateData(adata )
 
 if (args.filterCells):
-    if (annotatedFile == None):
-        # we did not just annotate so take the input file to filter
-        annotatedFile = args.data_file
+    print("Filtering cells")
+    filterCells(adata,  min_counts=args.min_counts, min_genes=args.min_genes, max_counts=max_counts, max_genes=max_genes)
 
-    print("filtering cells")
-    filteredFile = args.output_filename[:-3] + "_cellFiltered.h5"
-    filterCells(annotatedFile, 'GRCh38', filteredFile, min_counts=args.min_counts, min_genes=args.min_genes)
-
-fullyFilteredFile = none
 if (args.filterGenes):
-    print("filteringGenes")
-    if (filteredFile == None):
-        if (annotatedFile != None):
-            filteredFile = annotatedFile
-        else:
-            # we did not just annotate so take the input file to filter
-            filteredFile = args.data_file
+    print("Filtering genes")
+    filterGenes(adata, min_cells=args.min_cells, max_cells = max_cells)
 
-    fullyFilteredFile = args.output_filename[:-3] + "_geneFiltered.h5"
-    filterGenes(filteredFile, 'GRCh38', fullyFilteredFile, min_cells=args.min_cells)
-    print("Done - last output is "+ fullyFilteredFile)
+
+fullyFilteredFile = args.output_filename + "_preprocessed.h5"
+print("Done - last output is " + fullyFilteredFile)
+
+write10xH5(adata, fullyFilteredFile, 'GRCh38')

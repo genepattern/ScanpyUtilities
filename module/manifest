@@ -2,7 +2,7 @@ JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.01
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
-commandLine=python /build/run_scanpy_module.py  --data.file=<data.file> --output.filename=<output.filename> --min.counts=<min.counts> --min.genes=<min.genes> --min.cells=<min.cells>  --group.name=<group.name> --annotate=<annotate> --filterCells=<filter.cells> --filterGenes=<filter.genes> --batch.correct.and.normalize=<batch.correct.and.normalize>
+commandLine=python /build/run_scanpy_module.py  --data.file=<data.file> --output.filename=<output.filename> --min.counts=<min.counts> --min.genes=<min.genes> --min.cells=<min.cells>  --group.name=<group.name> --annotate=<annotate> --filterCells=<filter.cells> --filterGenes=<filter.genes> --batch.correct.and.normalize=<batch.correct.and.normalize> <max.counts> <max.genes> <max.cells>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -14,6 +14,7 @@ os=any
 #job.docker.image=genepattern/scanpypreprocess\:latest
 job.docker.image=genepattern/scanpypreprocess
 job.cpuCount=4
+job.memory=16 Gb
 
 p1_MODE=IN
 p1_TYPE=FILE
@@ -59,7 +60,7 @@ p3_value=
 
 p4_MODE=
 p4_TYPE=TEXT
-p4_default_value=<data.file_basename>.h5
+p4_default_value=<data.file_basename>
 p4_description=Base filename for the output file
 p4_fileFormat=
 p4_flag=
@@ -154,6 +155,51 @@ p10_prefix=
 p10_prefix_when_specified=
 p10_type=java.lang.String
 p10_value=
+
+p11_MODE=
+p11_TYPE=TEXT
+p11_default_value=
+p11_description=Optional, leave blank to skip. Filter out genes > max genes.genes
+p11_fileFormat=
+p11_flag=
+p11_name=max.genes
+p11_numValues=0..1
+p11_optional=on
+p11_prefix=
+p11_prefix_when_specified=--max.genes=
+p11_type=java.lang.String
+p11_value=
+
+p12_MODE=
+p12_TYPE=TEXT
+p12_default_value=
+p12_description=Optional, leave blank to skip. Filter out counts  > max counts
+p12_fileFormat=
+p12_flag=
+p12_name=max.counts
+p12_numValues=0..1
+p12_optional=on
+p12_prefix=
+p12_prefix_when_specified=--max.counts=
+p12_type=java.lang.String
+p12_value=
+
+p13_MODE=
+p13_TYPE=TEXT
+p13_default_value=
+p13_description=Optional, leave blank to skip. Filter out cells > max cells
+p13_fileFormat=
+p13_flag=
+p13_name=max.cells
+p13_numValues=0..1
+p13_optional=on
+p13_prefix=
+p13_prefix_when_specified=--max.cells=
+p13_type=java.lang.String
+p13_value=
+
+
+
 
 
 privacy=public
