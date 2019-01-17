@@ -94,20 +94,19 @@ genes_max_counts = None if not args.genes_max_counts else args.genes_max_counts
 genes_min_cells  = None if not args.genes_min_cells  else args.genes_min_cells
 genes_max_cells  = None if not args.genes_max_cells  else args.genes_max_cells
 
-adata = read10xH5(args.data_file, 'GRCh38')
+adata = read10xH5(args.data_file, args.group_name)
 
 if (args.annotate):
     print("Performing annotation")
-    annotateData(adata )
+    annotateData(adata)
 
-if (args.filterCells):
+if (any([cells_min_counts, cells_max_counts, cells_min_genes, cells_max_genes]):
     print("Filtering cells")
-    filterCells(adata,  min_counts=args.min_counts, min_genes=args.min_genes, max_counts=max_counts, max_genes=max_genes)
+    filterCells(adata, min_counts=cells_min_counts, max_counts=cells_max_counts, min_genes=cells_min_genes, max_genes=cells_max_genes)
 
-if (args.filterGenes):
+if (any([genes_min_counts, genes_max_counts, genes_min_cells, genes_max_cells]):
     print("Filtering genes")
-    filterGenes(adata, min_cells=args.min_cells, max_cells = max_cells)
-
+    filterGenes(adata, min_counts=genes_min_counts, max_counts=genes_max_counts, min_cells=genes_min_cells, max_cells=genes_max_cells)
 
 fullyFilteredFile = args.output_filename + "_preprocessed.h5"
 print("Done - last output is " + fullyFilteredFile)
