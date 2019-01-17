@@ -33,7 +33,7 @@ p1_value=
 
 p2_MODE=
 p2_TYPE=TEXT
-p2_default_value=
+p2_default_value=GRCh38
 p2_description=Group name to use in the hdf5 file
 p2_fileFormat=
 p2_flag=
@@ -83,7 +83,7 @@ p5_description=Filter out cells with fewer total counts than min counts
 p5_fileFormat=
 p5_flag=
 p5_name=cells.min.counts
-p5_numValues=1..1
+p5_numValues=0..1
 p5_optional=on
 p5_prefix=
 p5_prefix_when_specified=--cells.min.counts=
@@ -113,7 +113,7 @@ p7_description=Filter out cells with fewer than min genes expressed
 p7_fileFormat=
 p7_flag=
 p7_name=cells.min.genes
-p7_numValues=1..1
+p7_numValues=0..1
 p7_optional=on
 p7_prefix=
 p7_prefix_when_specified=--cells.min.genes
@@ -143,7 +143,7 @@ p9_description=Filter out genes with fewer total counts than min counts
 p9_fileFormat=
 p9_flag=
 p9_name=genes.min.counts
-p9_numValues=1..1
+p9_numValues=0..1
 p9_optional=on
 p9_prefix=
 p9_prefix_when_specified=--genes.min.counts=
@@ -173,7 +173,7 @@ p11_description=Filter out genes expressed in fewer than min cells
 p11_fileFormat=
 p11_flag=
 p11_name=genes.min.cells
-p11_numValues=1..1
+p11_numValues=0..1
 p11_optional=on
 p11_prefix=
 p11_prefix_when_specified=--genes.min.cells=
