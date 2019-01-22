@@ -1,5 +1,5 @@
 [{name: "Input and Output", 
-  parameters: ["data.file", "group.name", "output.filename"]}, 
+  parameters: ["data.file", "output.filename"]}, 
 {name: "Annotation", hidden: false, 
   parameters: ["annotate"]},
 {name: "Cell Filtering", hidden: false,        

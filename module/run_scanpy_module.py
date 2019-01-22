@@ -1,5 +1,7 @@
 import argparse
 import distutils.util
+import os
+import sys
 from ScanpyPreprocessFunctions import *
 
 def check_positive(value):
@@ -14,11 +16,7 @@ parser = argparse.ArgumentParser()
 # ~~~~Module Required Arguments~~~~~ #
 parser.add_argument("-f", "--data.file", dest="data_file",
                     type=str,
-                    help="A 10x formatted, h5 file containing the single cell data")
-
-parser.add_argument("-g", "--group.name", dest="group_name",
-                    type=str,
-                    help="Group name to use in the hdf5 file")
+                    help="An h5ad file containing the single cell data")
 
 parser.add_argument("-o", "--output.filename", dest="output_filename",
                     type=str,
@@ -94,7 +92,12 @@ genes_max_counts = None if not args.genes_max_counts else args.genes_max_counts
 genes_min_cells  = None if not args.genes_min_cells  else args.genes_min_cells
 genes_max_cells  = None if not args.genes_max_cells  else args.genes_max_cells
 
-adata = read10xH5(args.data_file, args.group_name)
+fname, fext = os.path.splitext(args.data_file)
+if fext == '.h5ad':
+    adata = sc.read(args.data_file)
+else:
+    print("invalid file, must be h5ad - see scanpy documentation", file=sys.stderr)
+    sys.exit(1)
 
 if (args.annotate):
     print("Performing annotation")
@@ -108,7 +111,6 @@ if (any([genes_min_counts, genes_max_counts, genes_min_cells, genes_max_cells]):
     print("Filtering genes")
     filterGenes(adata, min_counts=genes_min_counts, max_counts=genes_max_counts, min_cells=genes_min_cells, max_cells=genes_max_cells)
 
-fullyFilteredFile = args.output_filename + "_preprocessed.h5"
+fullyFilteredFile = args.output_filename + "_preprocessed.h5ad"
 print("Done - last output is " + fullyFilteredFile)
-
-write10xH5(adata, fullyFilteredFile, 'GRCh38')
+adata.write(fullyFilteredFile, compression='gzip', compression_opts=1)
