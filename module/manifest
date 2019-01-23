@@ -2,7 +2,7 @@ JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.01
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
-commandLine=python /build/run_scanpy_module.py  --data.file=<data.file> --output.filename=<output.filename> --annotate=<annotate> --batch.correct.and.normalize=<batch.correct.and.normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells>
+commandLine=/build/run_module.sh  --data.file=<data.file> --output.basename=<output.basename> --annotate=<annotate> --normalize=<normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <n.high.variance.genes>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -19,8 +19,8 @@ job.memory=16 Gb
 p1_MODE=IN
 p1_TYPE=FILE
 p1_default_value=
-p1_description=A 10x formatted, h5 file containing the single cell data
-p1_fileFormat=h5
+p1_description=An h5ad formatted file containing single-cell data
+p1_fileFormat=h5ad
 p1_flag=
 p1_name=data.file
 p1_numValues=1..1
@@ -37,7 +37,7 @@ p2_default_value=<data.file_basename>
 p2_description=Base filename for the output file
 p2_fileFormat=
 p2_flag=
-p2_name=output.filename
+p2_name=output.basename
 p2_numValues=1..1
 p2_optional=
 p2_prefix=
@@ -184,10 +184,10 @@ p11_value=
 p12_MODE=
 p12_TYPE=TEXT
 p12_default_value=False
-p12_description=Whether to perform batch correction and normalization True/False.  This step is performed after filtering if filtering is on
+p12_description=Whether to perform normalization True/False. This step is performed after filtering if filtering is on
 p12_fileFormat=
 p12_flag=
-p12_name=batch.correct.and.normalize
+p12_name=normalize
 p12_numValues=1..1
 p12_optional=
 p12_prefix=
@@ -195,7 +195,19 @@ p12_prefix_when_specified=
 p12_type=java.lang.String
 p12_value=False\=no;True\=yes
 
-
+p13_MODE=
+p13_TYPE=TEXT
+p13_default_value=
+p13_description=Subset to the top N highly variable genes
+p13_fileFormat=
+p13_flag=
+p13_name=n.high.variance.genes
+p13_numValues=0..1
+p13_optional=on
+p13_prefix=
+p13_prefix_when_specified=--n.high.variance.genes=
+p13_type=java.lang.String
+p13_value=
 
 
 
