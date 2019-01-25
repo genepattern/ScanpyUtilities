@@ -29,5 +29,6 @@ COPY module/* /build/
 RUN chmod a+x /build/run_module.sh
 
 ENV PYTHONPATH /build:$PYTHONPATH
+RUN pip install igraph
 
 CMD [ "python --version"]
