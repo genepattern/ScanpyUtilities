@@ -1,8 +1,8 @@
 JVMLevel=
-LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.01
+LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.02
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
-commandLine=/build/run_module.sh  --data.file=<data.file> --output.basename=<output.basename> --annotate=<annotate> --normalize=<normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <n.high.variance.genes>
+commandLine=bash /build/run_module.sh  --src.path=/build --data.file=<data.file> --output.basename=<output.basename> --annotate=<annotate> --normalize=<normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <n.high.variance.genes>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -12,7 +12,7 @@ minGenePatternVersion=3.9.13
 name=ScanpyPreprocess
 os=any
 #job.docker.image=genepattern/scanpypreprocess\:latest
-job.docker.image=genepattern/scanpypreprocess
+job.docker.image=genepattern/scanpypreprocess:sh
 job.cpuCount=4
 job.memory=16 Gb
 
@@ -48,7 +48,7 @@ p2_value=
 
 p3_MODE=
 p3_TYPE=TEXT
-p3_default_value=False
+p3_default_value=0
 p3_description=Whether to annotate the dataset True/False
 p3_fileFormat=
 p3_flag=
@@ -58,7 +58,7 @@ p3_optional=
 p3_prefix=
 p3_prefix_when_specified=
 p3_type=java.lang.String
-p3_value=False\=no;True\=yes
+p3_value=0\=no;1\=yes
 
 
 p4_MODE=
@@ -101,7 +101,7 @@ p6_name=cells.min.genes
 p6_numValues=1..1
 p6_optional=on
 p6_prefix=
-p6_prefix_when_specified=--cells.min.genes
+p6_prefix_when_specified=--cells.min.genes=
 p6_type=java.lang.String
 p6_value=
 
@@ -183,7 +183,7 @@ p11_value=
 
 p12_MODE=
 p12_TYPE=TEXT
-p12_default_value=False
+p12_default_value=0
 p12_description=Whether to perform normalization True/False. This step is performed after filtering if filtering is on
 p12_fileFormat=
 p12_flag=
@@ -193,7 +193,7 @@ p12_optional=
 p12_prefix=
 p12_prefix_when_specified=
 p12_type=java.lang.String
-p12_value=False\=no;True\=yes
+p12_value=0\=no;1\=yes
 
 p13_MODE=
 p13_TYPE=TEXT
