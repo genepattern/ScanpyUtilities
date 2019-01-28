@@ -145,6 +145,6 @@ if [ ! -z $COMPUTE_UMAP ] || [ ! -z $COMPUTE_TSNE ]; then
     FULL_OUTPUT=$OUTPUT_BASENAME"_dim_reduce.h5ad"
     echo "dimension reduction input: "$DATA_FILE
     echo "dimension reduction output: "$FULL_OUTPUT
-    python3 dimension_reduction.py $DATA_FILE $FULL_OUTPUT $COMPUTE_UMAP $COMPUTE_TSNE
+    python3 $SRC_PATH/dimension_reduction.py $DATA_FILE $FULL_OUTPUT $COMPUTE_UMAP $COMPUTE_TSNE
     DATA_FILE=$FULL_OUTPUT
 fi
