@@ -1,8 +1,14 @@
 #!/bin/bash
+SRC_PATH=.
 
 for i in "$@"
 do
     case $i in
+        --src.path=*)
+        SRC_PATH="${i#*=}"
+        echo "Looking for code in $SRC_PATH"
+        ;;
+
         --data.file=*)
         DATA_FILE="${i#*=}"
         ;;
@@ -82,7 +88,7 @@ done
 if [ ! -z $ANNOTATE ] && [ "$ANNOTATE" -eq 1 ]; then
     echo "-- adding default annotations --"
     FULL_OUTPUT=$OUTPUT_BASENAME"_annotated.h5ad"
-    python3 add_default_annotations.py $DATA_FILE $FULL_OUTPUT
+    python3 $SRC_PATH/add_default_annotations.py $DATA_FILE $FULL_OUTPUT
     DATA_FILE=$FULL_OUTPUT
 fi
 
@@ -94,7 +100,7 @@ if [ ! -z $CELLS_MIN_COUNTS ] || [ ! -z $CELLS_MAX_COUNTS ] || [ ! -z $CELLS_MIN
     if [ -z $CELLS_MAX_GENES ]; then CELLS_MAX_GENES="0"; fi
 
     FULL_OUTPUT=$OUTPUT_BASENAME"_cell_filter.h5ad"
-    python3 filter_cells.py $DATA_FILE $FULL_OUTPUT $CELLS_MIN_COUNTS $CELLS_MAX_COUNTS $CELLS_MIN_GENES $CELLS_MAX_GENES
+    python3 $SRC_PATH/filter_cells.py $DATA_FILE $FULL_OUTPUT $CELLS_MIN_COUNTS $CELLS_MAX_COUNTS $CELLS_MIN_GENES $CELLS_MAX_GENES
     DATA_FILE=$FULL_OUTPUT
 fi
 
@@ -106,16 +112,16 @@ if [ ! -z $GENES_MIN_COUNTS ] || [ ! -z $GENES_MAX_COUNTS ] || [ ! -z $GENES_MIN
     if [ -z $GENES_MAX_CELLS ]; then GENES_MAX_CELLS="0"; fi
 
     FULL_OUTPUT=$OUTPUT_BASENAME"_gene_filter.h5ad"
-    python3 filter_genes.py $DATA_FILE $FULL_OUTPUT $GENES_MIN_COUNTS $GENES_MAX_COUNTS $GENES_MIN_CELLS $GENES_MAX_CELLS
+    python3 $SRC_PATH/filter_genes.py $DATA_FILE $FULL_OUTPUT $GENES_MIN_COUNTS $GENES_MAX_COUNTS $GENES_MIN_CELLS $GENES_MAX_CELLS
     DATA_FILE=$FULL_OUTPUT
 fi
 
 if [ ! -z $NORMALIZE ] && [ "$NORMALIZE" -eq 1 ]; then
     echo "-- normalizing --"
     FULL_OUTPUT=$OUTPUT_BASENAME"_normalized.h5ad"
-    python3 generate_clusters_for_normalization.py $DATA_FILE
-    Rscript compute_size_factors.R
-    python3 normalize.py $DATA_FILE $FULL_OUTPUT
+    python3 $SRC_PATH/generate_clusters_for_normalization.py $DATA_FILE
+    Rscript $SRC_PATH/compute_size_factors.R
+    python3 $SRC_PATH/normalize.py $DATA_FILE $FULL_OUTPUT
     DATA_FILE=$FULL_OUTPUT
 fi
 
@@ -125,13 +131,13 @@ if [ ! -z $BATCH_CORRECT ] && [ "$BATCH_CORRECT" -eq 1 ]; then
     echo "batch correction input: "$DATA_FILE
     echo "batch correction output: "$FULL_OUTPUT
     cp $DATA_FILE $FULL_OUTPUT
-    Rscript batch_correct.R $FULL_OUTPUT $BATCH_VAR
+    Rscript $SRC_PATH/batch_correct.R $FULL_OUTPUT $BATCH_VAR
     DATA_FILE=$FULL_OUTPUT
 fi
 
 if [ ! -z $HIGH_VAR_GENES ]; then
     echo "-- selecting "$HIGH_VAR_GENES" high variance genes --"
-    python3 high_variance_genes.py $DATA_FILE $OUTPUT_BASENAME $HIGH_VAR_GENES
+    python3 $SRC_PATH/high_variance_genes.py $DATA_FILE $OUTPUT_BASENAME $HIGH_VAR_GENES
 fi
 
 if [ ! -z $COMPUTE_UMAP ] || [ ! -z $COMPUTE_TSNE ]; then
