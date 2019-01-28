@@ -8,9 +8,11 @@
 {name: "Gene Filtering", hidden: false,        
   parameters: ["genes.min.counts", "genes.max.counts",  "genes.min.cells", "genes.max.cells"]},
 {name: "Normalization", hidden: false,        
-  parameters: ["normalize"]}
+  parameters: ["normalize"]},
 {name: "High Variance Genes", hidden: false,
-  parameters: ["n.high.variance.genes"]}
+  parameters: ["n.high.variance.genes"]},
+{name: "Dimension Reduction", hidden: false,
+  parameters: ["compute.umap", "compute.tsne"]}
 ]
 
 

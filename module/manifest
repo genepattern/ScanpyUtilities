@@ -2,7 +2,7 @@ JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.01
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
-commandLine=/build/run_module.sh  --data.file=<data.file> --output.basename=<output.basename> --annotate=<annotate> --normalize=<normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <n.high.variance.genes>
+commandLine=/build/run_module.sh  --data.file=<data.file> --output.basename=<output.basename> --annotate=<annotate> --normalize=<normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <n.high.variance.genes> --compute.umap=<compute.umap> --compute.tsne=<compute.tsne>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -209,6 +209,33 @@ p13_prefix_when_specified=--n.high.variance.genes=
 p13_type=java.lang.String
 p13_value=
 
+p14_MODE=
+p14_TYPE=TEXT
+p14_default_value=False
+p14_description=Whether to compute UMAP True/False.
+p14_fileFormat=
+p14_flag=
+p14_name=compute.umap
+p14_numValues=1..1
+p14_optional=
+p14_prefix=
+p14_prefix_when_specified=
+p14_type=java.lang.String
+p14_value=False\=no;True\=yes
+
+p15_MODE=
+p15_TYPE=TEXT
+p15_default_value=False
+p15_description=Whether to compute TSNE True/False.
+p15_fileFormat=
+p15_flag=
+p15_name=compute.tsne
+p15_numValues=1..1
+p15_optional=
+p15_prefix=
+p15_prefix_when_specified=
+p15_type=java.lang.String
+p15_value=False\=no;True\=yes
 
 
 

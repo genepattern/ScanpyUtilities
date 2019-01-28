@@ -63,6 +63,14 @@ do
         HIGH_VAR_GENES="${i#*=}"
         ;;
 
+        --compute.umap=*)
+        COMPUTE_UMAP="${i#*=}"
+        ;;
+
+        --compute.tsne=*)
+        COMPUTE_TSNE="${i#*=}"
+        ;;
+
         *)
             echo "ERROR: unrecognized option"
             echo "${i%=*}"
@@ -124,4 +132,13 @@ fi
 if [ ! -z $HIGH_VAR_GENES ]; then
     echo "-- selecting "$HIGH_VAR_GENES" high variance genes --"
     python3 high_variance_genes.py $DATA_FILE $OUTPUT_BASENAME $HIGH_VAR_GENES
+fi
+
+if [ ! -z $COMPUTE_UMAP ] || [ ! -z $COMPUTE_TSNE ]; then
+    echo "-- computing umap/tsne --"
+    FULL_OUTPUT=$OUTPUT_BASENAME"_dim_reduce.h5ad"
+    echo "dimension reduction input: "$DATA_FILE
+    echo "dimension reduction output: "$FULL_OUTPUT
+    python3 dimension_reduction.py $DATA_FILE $FULL_OUTPUT $COMPUTE_UMAP $COMPUTE_TSNE
+    DATA_FILE=$FULL_OUTPUT
 fi
