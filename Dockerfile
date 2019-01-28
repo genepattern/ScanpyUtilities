@@ -31,6 +31,12 @@ RUN apt-get install libhdf5-serial-dev --yes && \
 ADD r-installs.R /build/r-installs.R
 ADD requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
+
+# apt-get -y build-dep libcurl4-gnutls-dev 
+#
+RUN apt-get update --yes && \
+    apt-get -y install libcurl4-gnutls-dev
+
 RUN Rscript /build/r-installs.R
 
 COPY module/* /build/

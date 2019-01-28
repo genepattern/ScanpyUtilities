@@ -68,7 +68,7 @@ p4_description=Filter out cells with fewer total counts than min counts
 p4_fileFormat=
 p4_flag=
 p4_name=cells.min.counts
-p4_numValues=1..1
+p4_numValues=0..1
 p4_optional=on
 p4_prefix=
 p4_prefix_when_specified=--cells.min.counts=
@@ -98,7 +98,7 @@ p6_description=Filter out cells with fewer than min genes expressed
 p6_fileFormat=
 p6_flag=
 p6_name=cells.min.genes
-p6_numValues=1..1
+p6_numValues=0..1
 p6_optional=on
 p6_prefix=
 p6_prefix_when_specified=--cells.min.genes=
@@ -128,7 +128,7 @@ p8_description=Filter out genes with fewer total counts than min counts
 p8_fileFormat=
 p8_flag=
 p8_name=genes.min.counts
-p8_numValues=1..1
+p8_numValues=0..1
 p8_optional=on
 p8_prefix=
 p8_prefix_when_specified=--genes.min.counts=
@@ -158,7 +158,7 @@ p10_description=Filter out genes expressed in fewer than min cells
 p10_fileFormat=
 p10_flag=
 p10_name=genes.min.cells
-p10_numValues=1..1
+p10_numValues=0..1
 p10_optional=on
 p10_prefix=
 p10_prefix_when_specified=--genes.min.cells=
