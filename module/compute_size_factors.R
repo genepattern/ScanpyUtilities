@@ -1,6 +1,7 @@
 suppressMessages(library(Matrix))
 suppressMessages(library(rhdf5))
 suppressMessages(library(scran))
+sessionInfo()
 
 print("computing size factors with scran")
 

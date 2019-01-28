@@ -14,7 +14,7 @@ os=any
 #job.docker.image=genepattern/scanpypreprocess\:latest
 job.docker.image=genepattern/scanpypreprocess:sh
 job.cpuCount=4
-job.memory=16 Gb
+job.memory=32 Gb
 
 p1_MODE=IN
 p1_TYPE=FILE
