@@ -10,7 +10,9 @@
 {name: "Normalization", hidden: false,        
   parameters: ["normalize"]},
 {name: "High Variance Genes", hidden: false,
-  parameters: ["n.high.variance.genes"]}
+  parameters: ["n.high.variance.genes"]},
+{name: "Dimension Reduction", hidden: false,
+  parameters: ["compute.umap", "compute.tsne"]}
 ]
 
 
