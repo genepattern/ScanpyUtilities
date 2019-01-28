@@ -15,16 +15,20 @@ RUN mkdir /conda && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda
 
-ENV PATH="/opt/conda/bin:${PATH}"
+ENV PATH="/opt/conda/bin:/build:${PATH}"
 
-RUN   apt-get install libhdf5-serial-dev --yes
+RUN   apt-get install libhdf5-serial-dev --yes && \
+    apt-get install r-base --yes
 
-
+ADD r-installs.R /build/r-installs.R
 ADD requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
+RUN Rscript /build/r-installs.R
 
 COPY module/* /build/
+RUN chmod a+x /build/run_module.sh
 
-
+ENV PYTHONPATH /build:$PYTHONPATH
+RUN pip install igraph
 
 CMD [ "python --version"]
