@@ -1,5 +1,14 @@
 #!/bin/bash
 SRC_PATH=.
+  
+function exitOnError(){
+    if [ $1 -ne  0 ]; then
+        echo "ERROR CODE $1"
+        echo $2
+        exit $1
+    fi
+}
+
 
 for i in "$@"
 do
@@ -101,6 +110,7 @@ if [ ! -z $CELLS_MIN_COUNTS ] || [ ! -z $CELLS_MAX_COUNTS ] || [ ! -z $CELLS_MIN
 
     FULL_OUTPUT=$OUTPUT_BASENAME"_cell_filter.h5ad"
     python3 $SRC_PATH/filter_cells.py $DATA_FILE $FULL_OUTPUT $CELLS_MIN_COUNTS $CELLS_MAX_COUNTS $CELLS_MIN_GENES $CELLS_MAX_GENES
+    exitOnError $? "Error during cell filtering."
     DATA_FILE=$FULL_OUTPUT
 fi
 
@@ -113,6 +123,7 @@ if [ ! -z $GENES_MIN_COUNTS ] || [ ! -z $GENES_MAX_COUNTS ] || [ ! -z $GENES_MIN
 
     FULL_OUTPUT=$OUTPUT_BASENAME"_gene_filter.h5ad"
     python3 $SRC_PATH/filter_genes.py $DATA_FILE $FULL_OUTPUT $GENES_MIN_COUNTS $GENES_MAX_COUNTS $GENES_MIN_CELLS $GENES_MAX_CELLS
+    exitOnError $? "Error during gene filtering."
     DATA_FILE=$FULL_OUTPUT
 fi
 
@@ -120,8 +131,11 @@ if [ ! -z $NORMALIZE ] && [ "$NORMALIZE" -eq 1 ]; then
     echo "-- normalizing --"
     FULL_OUTPUT=$OUTPUT_BASENAME"_normalized.h5ad"
     python3 $SRC_PATH/generate_clusters_for_normalization.py $DATA_FILE
+    exitOnError $? "Error generating clusters for normalization."
     Rscript $SRC_PATH/compute_size_factors.R
+    exitOnError $? "Error computing size factors for normalization."
     python3 $SRC_PATH/normalize.py $DATA_FILE $FULL_OUTPUT
+    exitOnError $? "Error normalizing the data."
     DATA_FILE=$FULL_OUTPUT
 fi
 
@@ -132,12 +146,14 @@ if [ ! -z $BATCH_CORRECT ] && [ "$BATCH_CORRECT" -eq 1 ]; then
     echo "batch correction output: "$FULL_OUTPUT
     cp $DATA_FILE $FULL_OUTPUT
     Rscript $SRC_PATH/batch_correct.R $FULL_OUTPUT $BATCH_VAR
+    exitOnError $? "Error during batch correction."
     DATA_FILE=$FULL_OUTPUT
 fi
 
 if [ ! -z $HIGH_VAR_GENES ]; then
     echo "-- selecting "$HIGH_VAR_GENES" high variance genes --"
     python3 $SRC_PATH/high_variance_genes.py $DATA_FILE $OUTPUT_BASENAME $HIGH_VAR_GENES
+    exitOnError $? "Error filtering high variance genes."
 fi
 
 if [ ! -z $COMPUTE_UMAP ] || [ ! -z $COMPUTE_TSNE ]; then
@@ -146,5 +162,6 @@ if [ ! -z $COMPUTE_UMAP ] || [ ! -z $COMPUTE_TSNE ]; then
     echo "dimension reduction input: "$DATA_FILE
     echo "dimension reduction output: "$FULL_OUTPUT
     python3 $SRC_PATH/dimension_reduction.py $DATA_FILE $FULL_OUTPUT $COMPUTE_UMAP $COMPUTE_TSNE
+    exitOnError $? "Error creating umap or tsne plots."
     DATA_FILE=$FULL_OUTPUT
 fi
