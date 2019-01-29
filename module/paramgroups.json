@@ -1,6 +1,6 @@
 [
 {name: "Input and Output", 
-  parameters: ["data.file", "output.basename"]}, 
+  parameters: ["data.file", "output.basename", "genome"]}, 
 {name: "Annotation", hidden: false, 
   parameters: ["annotate"]},
 {name: "Cell Filtering", hidden: false,        

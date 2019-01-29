@@ -86,6 +86,11 @@ do
         COMPUTE_TSNE="${i#*=}"
         ;;
 
+        --genome=*)
+        GENOME="${i#*=}"
+        ;;
+
+
         *)
             echo "ERROR: unrecognized option"
             echo "${i%=*}"
@@ -94,10 +99,21 @@ do
     esac
 done
 
+
+if [ ! -z $GENOME ] && [ ${DATA_FILE: -3} == ".h5"   ]; then
+    echo "-- converting from H5 to H5AD format --"
+    FULL_OUTPUT=$OUTPUT_BASENAME".h5ad"
+    python3 $SRC_PATH/convert_to_h5ad.py $DATA_FILE $GENOME $FULL_OUTPUT
+    exitOnError $? "Error during conversion from h5 to h5ad format."
+    DATA_FILE=$FULL_OUTPUT
+fi
+
+
 if [ ! -z $ANNOTATE ] && [ "$ANNOTATE" -eq 1 ]; then
     echo "-- adding default annotations --"
     FULL_OUTPUT=$OUTPUT_BASENAME"_annotated.h5ad"
     python3 $SRC_PATH/add_default_annotations.py $DATA_FILE $FULL_OUTPUT
+    exitOnError $? "Error during adding default annotations."
     DATA_FILE=$FULL_OUTPUT
 fi
 
