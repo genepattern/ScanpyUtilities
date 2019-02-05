@@ -172,11 +172,16 @@ if [ ! -z $HIGH_VAR_GENES ]; then
     exitOnError $? "Error filtering high variance genes."
 fi
 
-if [ ! -z $COMPUTE_UMAP ] || [ ! -z $COMPUTE_TSNE ]; then
-    echo "-- computing umap/tsne --"
+if [ -z $COMPUTE_UMAP ]; then
+    COMPUTE_UMAP=0
+fi
+
+if [ -z $COMPUTE_TSNE ]; then
+    COMPUTE_TSNE=0
+fi
+
+if [[ "$COMPUTE_UMAP" -eq 1 || "$COMPUTE_TSNE" -eq 1 ]]; then
     FULL_OUTPUT=$OUTPUT_BASENAME"_dim_reduce.h5ad"
-    echo "dimension reduction input: "$DATA_FILE
-    echo "dimension reduction output: "$FULL_OUTPUT
     python3 $SRC_PATH/dimension_reduction.py $DATA_FILE $FULL_OUTPUT $COMPUTE_UMAP $COMPUTE_TSNE
     exitOnError $? "Error creating umap or tsne plots."
     DATA_FILE=$FULL_OUTPUT
