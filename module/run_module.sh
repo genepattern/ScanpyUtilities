@@ -170,6 +170,7 @@ if [ ! -z $HIGH_VAR_GENES ]; then
     echo "-- selecting "$HIGH_VAR_GENES" high variance genes --"
     python3 $SRC_PATH/high_variance_genes.py $DATA_FILE $OUTPUT_BASENAME $HIGH_VAR_GENES
     exitOnError $? "Error filtering high variance genes."
+    DATA_FILE=$OUTPUT_BASENAME"_high_variance_genes_subset.h5ad"
 fi
 
 if [ -z $COMPUTE_UMAP ]; then
