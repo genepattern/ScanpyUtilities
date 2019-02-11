@@ -152,6 +152,8 @@ if [ ! -z $NORMALIZE ] && [ "$NORMALIZE" -eq 1 ]; then
     exitOnError $? "Error computing size factors for normalization."
     python3 $SRC_PATH/normalize.py $DATA_FILE $FULL_OUTPUT
     exitOnError $? "Error normalizing the data."
+    rm -f temp_clustered_for_scran.h5ad
+    rm -f temp_size_factors.csv
     DATA_FILE=$FULL_OUTPUT
 fi
 
