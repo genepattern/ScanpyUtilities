@@ -15,81 +15,98 @@ do
     case $i in
         --src.path=*)
         SRC_PATH="${i#*=}"
-        echo "Looking for code in $SRC_PATH"
+        echo "Looking for code in ${SRC_PATH}"
         ;;
 
         --data.file=*)
         DATA_FILE="${i#*=}"
+        echo "data file: ${DATA_FILE}"
         ;;
 
         --output.basename=*)
         OUTPUT_BASENAME="${i#*=}"
+        echo "output basename: ${OUTPUT_BASENAME}"
         ;;
 
         --annotate=*)
         ANNOTATE="${i#*=}"
+        echo "annotate: ${ANNOTATE}"
         ;;
 
         --cells.min.counts=*)
         CELLS_MIN_COUNTS="${i#*=}"
+        echo "cells min counts: ${CELLS_MIN_COUNTS}"
         ;;
 
         --cells.max.counts=*)
         CELLS_MAX_COUNTS="${i#*=}"
+        echo "cells max counts: ${CELLS_MAX_COUNTS}"
         ;;
 
         --cells.min.genes=*)
         CELLS_MIN_GENES="${i#*=}"
+        echo "cells min genes: ${CELLS_MIN_GENES}"
         ;;
 
         --cells.max.genes=*)
         CELLS_MAX_GENES="${i#*=}"
+        echo "cells max genes: ${CELLS_MAX_GENES}"
         ;;
 
         --genes.min.counts=*)
         GENES_MIN_COUNTS="${i#*=}"
+        echo "genes min counts: ${GENES_MIN_COUNTS}"
         ;;
 
         --genes.max.counts=*)
         GENES_MAX_COUNTS="${i#*=}"
+        echo "genes max counts: ${GENES_MAX_COUNTS}"
         ;;
 
         --genes.min.cells=*)
         GENES_MIN_CELLS="${i#*=}"
+        echo "genes min cells: ${GENES_MIN_CELLS}"
         ;;
 
         --genes.max.cells=*)
         GENES_MAX_CELLS="${i#*=}"
+        echo "genes max cells: ${GENES_MAX_CELLS}"
         ;;
 
         --normalize=*)
         NORMALIZE="${i#*=}"
+        echo "normalize: ${NORMALIZE}"
         ;;
 
         --batch.correct=*)
         BATCH_CORRECT="${i#*=}"
+        echo "batch correct: ${BATCH_CORRECT}"
         ;;
 
         --batch.variable=*)
         BATCH_VAR="${i#*=}"
+        echo "batch variable: ${BATCH_VAR}"
         ;;
 
         --n.high.variance.genes=*)
         HIGH_VAR_GENES="${i#*=}"
+        echo "num high variance genes: ${HIGH_VAR_GENES}"
         ;;
 
         --compute.umap=*)
         COMPUTE_UMAP="${i#*=}"
+        echo "compute umap: ${COMPUTE_UMAP}"
         ;;
 
         --compute.tsne=*)
         COMPUTE_TSNE="${i#*=}"
+        echo "compute tsne: ${COMPUTE_TSNE}"
         ;;
 
         --genome=*)
         GENOME="${i#*=}"
+        echo "genome: ${GENOME}"
         ;;
-
 
         *)
             echo "ERROR: unrecognized option"
