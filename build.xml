@@ -26,7 +26,7 @@
   THE SOFTWARE.
 -->
 
-<project basedir="" default="devReleaseModule" name="ScanpyPreprocess">
+<project basedir="" default="devReleaseModule" name="ScanpyUtilities">
     <property name="dirOffset" value="../common_module_code" />
     <import file="${dirOffset}/commontargets.xml" />
 
