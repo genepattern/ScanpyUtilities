@@ -1,4 +1,6 @@
 #!/bin/bash
+
+echo "Version v0.1"
 SRC_PATH=.
   
 function exitOnError(){
