@@ -5,19 +5,19 @@ MAINTAINER Ted Liefeld <jliefeld@cloud.ucsd.edu>
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-#RUN apt-get update && \
-#   apt-get install zip --yes && \
-#   apt-get install software-properties-common --yes
+RUN mkdir /build
 
-RUN apt-get update  --yes && \
+# install system dependencies
+RUN apt-get update --yes && \
     apt-get install build-essential --yes && \
+    apt-get install libcurl4-gnutls-dev --yes && \
+    apt-get install libhdf5-serial-dev --yes && \
+    apt-get install libigraph0-dev --yes && \
     apt-get install python --yes && \
     wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py && \
     python get-pip.py
 
-
-RUN mkdir /build
-
+# set up conda environment
 RUN mkdir /conda && \
     cd /conda && \
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
@@ -25,23 +25,22 @@ RUN mkdir /conda && \
 
 ENV PATH="/opt/conda/bin:/build:${PATH}"
 
-RUN apt-get install libhdf5-serial-dev --yes && \
-    apt-get install -y libigraph0-dev
-
-ADD r-installs.R /build/r-installs.R
+# install python dependencies
 ADD requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
 
-# apt-get -y build-dep libcurl4-gnutls-dev 
-#
-RUN apt-get update --yes && \
-    apt-get -y install libcurl4-gnutls-dev
-
-RUN Rscript /build/r-installs.R
+# install R dependencies
+RUN R -e 'install.packages("remotes")'
+RUN R -e 'install.packages("BiocManager")'
+RUN R -e 'BiocManager::install()'
+RUN R -e 'BiocManager::install("rhdf5")'
+RUN R -e 'BiocManager::install("igraph")'
+RUN R -e 'BiocManager::install("sva")'
+RUN R -e 'BiocManager::install("scran")'
 
 COPY module/* /build/
 RUN chmod a+x /build/run_module.sh
 
 ENV PYTHONPATH /build:$PYTHONPATH
 
-CMD [ "python --version"]
+CMD ["python --version"]

@@ -1,2 +1,3 @@
 module/__pycache__
-local_tests/
+test/module/data/ica_donor_5_channel_1_*
+
