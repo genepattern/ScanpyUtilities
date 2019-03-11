@@ -4,10 +4,10 @@
 echo "Version v0.1"
 
 # default values for parameters
+PY_EXEC="python"
 SRC_PATH=.
 COMPUTE_UMAP=0
 COMPUTE_TSNE=0
-PY_EXEC="python"
 
 # helper function
 function exitOnError(){

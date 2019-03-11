@@ -2,7 +2,7 @@ JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.04
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
-commandLine=bash /build/run_module.sh --python.executable=python --src.path=/build --data.file=<data.file> --output.basename=<output.basename> --annotate=<annotate> --normalize=<normalize> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <n.high.variance.genes> --compute.umap=<compute.umap> --compute.tsne=<compute.tsne> <genome>
+commandLine=bash /build/run_module.sh --python.executable=python --src.path=/build --data.file=<data.file> --output.basename=<output.basename> <genome> --annotate=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> --normalize=<normalize> <n.high.variance.genes> --compute.umap=<compute.umap> --compute.tsne=<compute.tsne>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -179,58 +179,56 @@ p11_prefix_when_specified=--genes.max.cells=
 p11_type=java.lang.String
 p11_value=
 
-
-p12_MODE=
-p12_TYPE=TEXT
-p12_default_value=0
-p12_description=Whether to perform normalization True/False. This step is performed after filtering if filtering is on
-p12_fileFormat=
+p12_MODE=IN
+p12_TYPE=FILE
+p12_default_value=
+p12_description=A text file describing the marker genes for each cell type. This should be in the format accepted by the R package garnett.
+p12_fileFormat=txt
 p12_flag=
-p12_name=normalize
-p12_numValues=1..1
-p12_optional=
+p12_name=cell.type.marker.file
+p12_numValues=0..1
+p12_optional=on
 p12_prefix=
-p12_prefix_when_specified=
-p12_type=java.lang.String
-p12_value=0\=no;1\=yes
+p12_prefix_when_specified=--cell.type.marker.file=
+p12_type=java.io.File
+p12_value=
 
 p13_MODE=
 p13_TYPE=TEXT
-p13_default_value=
-p13_description=Subset to the top N highly variable genes
+p13_default_value=0
+p13_description=Whether to perform normalization True/False. This step is performed after filtering if filtering is on
 p13_fileFormat=
 p13_flag=
-p13_name=n.high.variance.genes
-p13_numValues=0..1
-p13_optional=on
+p13_name=normalize
+p13_numValues=1..1
+p13_optional=
 p13_prefix=
-p13_prefix_when_specified=--n.high.variance.genes=
+p13_prefix_when_specified=
 p13_type=java.lang.String
-p13_value=
-
+p13_value=0\=no;1\=yes
 
 p14_MODE=
 p14_TYPE=TEXT
-p14_default_value=0
-p14_description=Whether to compute UMAP True/False.
+p14_default_value=
+p14_description=Subset to the top N highly variable genes
 p14_fileFormat=
 p14_flag=
-p14_name=compute.umap
-p14_numValues=1..1
-p14_optional=
+p14_name=n.high.variance.genes
+p14_numValues=0..1
+p14_optional=on
 p14_prefix=
-p14_prefix_when_specified=
+p14_prefix_when_specified=--n.high.variance.genes=
 p14_type=java.lang.String
-p14_value=0\=no;1\=yes
+p14_value=
 
 
 p15_MODE=
 p15_TYPE=TEXT
 p15_default_value=0
-p15_description=Whether to compute TSNE True/False.
+p15_description=Whether to compute UMAP True/False.
 p15_fileFormat=
 p15_flag=
-p15_name=compute.tsne
+p15_name=compute.umap
 p15_numValues=1..1
 p15_optional=
 p15_prefix=
@@ -238,19 +236,35 @@ p15_prefix_when_specified=
 p15_type=java.lang.String
 p15_value=0\=no;1\=yes
 
+
 p16_MODE=
 p16_TYPE=TEXT
-p16_default_value=
-p16_description=If the data file parameter is in h5 format, the genome to use when converting to h5ad (anndata/scanpy) format, e.g. GRCh38.
+p16_default_value=0
+p16_description=Whether to compute TSNE True/False.
 p16_fileFormat=
 p16_flag=
-p16_name=genome
-p16_numValues=0..1
-p16_optional=on
+p16_name=compute.tsne
+p16_numValues=1..1
+p16_optional=
 p16_prefix=
-p16_prefix_when_specified=--genome=
+p16_prefix_when_specified=
 p16_type=java.lang.String
-p16_value=
+p16_value=0\=no;1\=yes
+
+
+p17_MODE=
+p17_TYPE=TEXT
+p17_default_value=
+p17_description=If the data file parameter is in h5 format, the genome to use when converting to h5ad (anndata/scanpy) format, e.g. GRCh38.
+p17_fileFormat=
+p17_flag=
+p17_name=genome
+p17_numValues=0..1
+p17_optional=on
+p17_prefix=
+p17_prefix_when_specified=--genome=
+p17_type=java.lang.String
+p17_value=
 
 
 privacy=public
