@@ -17,14 +17,6 @@ RUN apt-get update --yes && \
     wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py && \
     python get-pip.py
 
-# set up conda environment
-RUN mkdir /conda && \
-    cd /conda && \
-    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda
-
-ENV PATH="/opt/conda/bin:/build:${PATH}"
-
 # install python dependencies
 ADD requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
@@ -38,9 +30,9 @@ RUN R -e 'BiocManager::install("igraph")'
 RUN R -e 'BiocManager::install("sva")'
 RUN R -e 'BiocManager::install("scran")'
 
+# copy module files
 COPY module/* /build/
 RUN chmod a+x /build/run_module.sh
 
-ENV PYTHONPATH /build:$PYTHONPATH
-
+# default command
 CMD ["python --version"]
