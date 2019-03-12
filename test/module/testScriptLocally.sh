@@ -5,8 +5,11 @@ echo "Looking for test data in ${TEST_DATA_DIR}"
 
 ORIG_DATA_FILE="${TEST_DATA_DIR}/ica_donor_5_channel_1.h5ad"
 ORIG_DATA_BASENAME="${TEST_DATA_DIR}/ica_donor_5_channel_1"
+eval "rm ${TEST_DATA_DIR}/ica_donor_5_channel_1_*"
+
 
 CMD="bash ../../module/run_module.sh \
+    --python.executable=python3 \
     --src.path=../../module/ \
     --data.file=${ORIG_DATA_FILE} \
     --output.basename=${ORIG_DATA_BASENAME} \

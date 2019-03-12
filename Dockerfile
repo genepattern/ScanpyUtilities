@@ -8,11 +8,12 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 RUN mkdir /build
 
 # install system dependencies
-RUN apt-get update --yes && \
-    apt-get install build-essential --yes && \
-    apt-get install libcurl4-gnutls-dev --yes && \
-    apt-get install libhdf5-serial-dev --yes && \
-    apt-get install libigraph0-dev --yes
+RUN apt-get update --yes
+RUN apt-get install build-essential --yes
+RUN apt-get install libcurl4-gnutls-dev --yes
+RUN apt-get install libhdf5-serial-dev --yes
+RUN apt-get install libigraph0-dev --yes
+RUN apt-get install libxml2-dev --yes
 
 # install python with conda
 RUN mkdir /conda && \
@@ -25,10 +26,19 @@ ENV PATH="/opt/conda/bin:${PATH}"
 RUN R -e 'install.packages("remotes")'
 RUN R -e 'install.packages("BiocManager")'
 RUN R -e 'BiocManager::install()'
+RUN R -e 'BiocManager::install("XML")'
+RUN R -e 'BiocManager::install("matrixStats")'
+RUN R -e 'BiocManager::install("RSQLite")'
 RUN R -e 'BiocManager::install("rhdf5")'
 RUN R -e 'BiocManager::install("igraph")'
 RUN R -e 'BiocManager::install("sva")'
 RUN R -e 'BiocManager::install("scran")'
+RUN R -e 'BiocManager::install("monocle")'
+RUN R -e 'BiocManager::install("DelayedArray")'
+RUN R -e 'BiocManager::install("DelayedMatrixStats")'
+RUN R -e 'BiocManager::install("org.Hs.eg.db")'
+RUN R -e 'BiocManager::install("org.Mm.eg.db")'
+RUN R -e 'remotes::install_github("cole-trapnell-lab/garnett")'
 
 # install python dependencies
 RUN pip install numpy==1.15.4
@@ -38,7 +48,8 @@ RUN pip install anndata==0.6.18
 RUN pip install python-igraph==0.7.1.post6
 RUN pip install louvain==0.6.1
 RUN pip install scanpy==1.3.3
-RUN pip install MulticoreTSNE
+RUN pip install cmake==3.13.3
+RUN pip install MulticoreTSNE==0.1
 
 # copy module files
 COPY module/* /build/
