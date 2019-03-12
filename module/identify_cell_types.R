@@ -1,6 +1,7 @@
 suppressMessages(library(Matrix))
 suppressMessages(library(rhdf5))
 suppressMessages(library(monocle))
+suppressMessages(library(garnett))
 
 # read commnad line arguments
 args <- commandArgs(trailingOnly=TRUE)
@@ -13,7 +14,7 @@ if (!is.na(gene_anno_db))
     print(paste("gene annotation database:", gene_anno_db))
     if (!(gene_anno_db %in% c("org.Hs.eg.db", "org.Mm.eg.db")))
         stop("unrecognized gene annotation database")
-    library(gene_anno_db, character.only=TRUE)
+    suppressMessages(library(gene_anno_db, character.only=TRUE))
 }
 
 # read count data from file
@@ -40,8 +41,8 @@ cds <- newCellDataSet(counts, phenoData=pd, featureData=fd,
 cds <- estimateSizeFactors(cds)
 
 # evaluate quality of marker file and return results in an image
-if (is.null(gene_anno_db)) {
-    marker_check <- check_markers(cds, marker_file)
+if (is.na(gene_anno_db)) {
+    marker_check <- check_markers(cds, marker_file, db="none")
 } else {
     marker_check <- check_markers(cds, marker_file, db=get(gene_anno_db),
         cds_gene_id_type="ENSEMBL", marker_file_gene_id_type="SYMBOL")
@@ -51,9 +52,9 @@ plot_markers(marker_check)
 dev.off()
 
 # train classifier and apply to data set
-if (is.null(gene_anno_db)) {
-    classifier <- train_cell_classifier(cds=cds, marker_file=marker_file)
-    cds <- classify_cells(cds, classifier, cluster_extend=TRUE)
+if (is.na(gene_anno_db)) {
+    classifier <- train_cell_classifier(cds=cds, marker_file=marker_file, db="none")
+    cds <- classify_cells(cds, classifier, cluster_extend=TRUE, db="none")
 } else {
     classifier <- train_cell_classifier(cds=cds, marker_file=marker_file,
         db=get(gene_anno_db), cds_gene_id_type="ENSEMBL",

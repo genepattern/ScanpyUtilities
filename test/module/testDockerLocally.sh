@@ -19,6 +19,7 @@ CMD="bash build/run_module.sh \
     --cells.min.genes=500 \
     --genes.min.cells=10 \
     --cell.type.marker.file=${TEST_DATA_DIR}/markers.txt \
+    --gene.annotation.database=org.Hs.eg.db \
     --normalize=1 \
     --n.high.variance.genes=3000 \
     --compute.umap=1 \
