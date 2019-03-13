@@ -65,6 +65,7 @@ if (is.na(gene_anno_db)) {
 print(table(pData(cds)$cell_type))
 
 # write cell types back to adata file
-#obs$cell_type <- as.character(pd$cell_type)
-#h5delete(adata_file, "/obs")
-#h5write(obs, adata_file, "/obs")
+obs$cell_type <- as.character(pData(cds)$cell_type)
+obs$index <- rownames(obs)
+h5delete(adata_file, "/obs")
+h5write(obs, adata_file, "/obs")

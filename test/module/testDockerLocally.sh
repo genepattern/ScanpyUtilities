@@ -11,11 +11,11 @@ eval "rm -f ${TEST_DATA_DIR}/ica_donor_5_channel_1_*"
 
 BASE_CMD="bash build/run_module.sh \
     --src.path=build/ \
-    --data.file=${ORIG_DATA_FILE} \
     --output.basename=${ORIG_DATA_BASENAME} \
 "
 
 TEST_1="${BASE_CMD} \
+    --data.file=${ORIG_DATA_FILE} \
     --annotate=1 \
     --cells.min.counts=1000 \
     --cells.max.counts=20000 \
@@ -30,6 +30,19 @@ TEST_1="${BASE_CMD} \
 "
 
 TEST_2="${BASE_CMD} \
-    --cell.type.marker.file=
+    --data.file=${ORIG_DATA_BASENAME}_gene_filter.h5ad \
+    --cell.type.marker.file=${TEST_DATA_DIR}/ensembl_markers.txt
+"
 
-docker run -v ${TEST_DATA_DIR}:${TEST_DATA_DIR} -t scanpy_utilities_module ${CMD}
+declare -a tests=(
+    "${TEST_1}"
+    "${TEST_2}"
+)
+
+for tst in "${tests[@]}"
+do
+    echo "========"
+    echo "NEW TEST"
+    echo "========"
+    docker run -v ${TEST_DATA_DIR}:${TEST_DATA_DIR} -t scanpy_utilities_module ${tst}
+done
