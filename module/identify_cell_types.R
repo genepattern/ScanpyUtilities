@@ -66,6 +66,7 @@ print(table(pData(cds)$cell_type))
 
 # write cell types back to adata file
 obs$cell_type <- as.character(pData(cds)$cell_type)
+obs$extended_cell_type <- as.character(pData(cds)$cluster_ext_type)
 obs$index <- rownames(obs)
 h5delete(adata_file, "/obs")
 h5write(obs, adata_file, "/obs")
