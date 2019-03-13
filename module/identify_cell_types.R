@@ -1,15 +1,21 @@
-library(Matrix)
-library(rhdf5)
-library(monocle)
+suppressMessages(library(Matrix))
+suppressMessages(library(rhdf5))
+suppressMessages(library(monocle))
+suppressMessages(library(garnett))
 
 # read commnad line arguments
 args <- commandArgs(trailingOnly=TRUE)
 adata_file <- args[1]
 marker_file <- args[2]
 gene_anno_db <- args[3]
-if (!is.null(geno_anno_db) & !(gene_anno_db %in% c("org.Hs.eg.db", "org.Mm.eg.db")))
-    stop("unrecognized gene annotation database")
-library(gene_anno_db)
+
+if (!is.na(gene_anno_db))
+{
+    print(paste("gene annotation database:", gene_anno_db))
+    if (!(gene_anno_db %in% c("org.Hs.eg.db", "org.Mm.eg.db")))
+        stop("unrecognized gene annotation database")
+    suppressMessages(library(gene_anno_db, character.only=TRUE))
+}
 
 # read count data from file
 raw_data <- as.numeric(h5read(adata_file, "/X/data"))
@@ -35,31 +41,32 @@ cds <- newCellDataSet(counts, phenoData=pd, featureData=fd,
 cds <- estimateSizeFactors(cds)
 
 # evaluate quality of marker file and return results in an image
-if (is.null(gene_anno_db))
-    marker_check <- check_markers(cds, marker_file)
-else
+if (is.na(gene_anno_db)) {
+    marker_check <- check_markers(cds, marker_file, db="none")
+} else {
     marker_check <- check_markers(cds, marker_file, db=get(gene_anno_db),
         cds_gene_id_type="ENSEMBL", marker_file_gene_id_type="SYMBOL")
+}
 png("ica_marker_check.png")
 plot_markers(marker_check)
 dev.off()
 
 # train classifier and apply to data set
-if (is.null(gene_anno_db))
-{
-    classifier <- train_cell_classifier(cds=cds, marker_file=marker_file)
-    cds <- classify_cells(cds, classifier, cluster_extend=TRUE)
-}
-else
-{
+if (is.na(gene_anno_db)) {
+    classifier <- train_cell_classifier(cds=cds, marker_file=marker_file, db="none")
+    cds <- classify_cells(cds, classifier, cluster_extend=TRUE, db="none")
+} else {
     classifier <- train_cell_classifier(cds=cds, marker_file=marker_file,
         db=get(gene_anno_db), cds_gene_id_type="ENSEMBL",
         marker_file_gene_id_type="SYMBOL")
     cds <- classify_cells(cds, classifier, db=get(gene_anno_db),
         cluster_extend=TRUE, cds_gene_id_type="ENSEMBL")
 }
+print(table(pData(cds)$cell_type))
 
 # write cell types back to adata file
-obs$cell_type <- as.character(pd$cell_type)
+obs$cell_type <- as.character(pData(cds)$cell_type)
+obs$extended_cell_type <- as.character(pData(cds)$cluster_ext_type)
+obs$index <- rownames(obs)
 h5delete(adata_file, "/obs")
 h5write(obs, adata_file, "/obs")
