@@ -62,8 +62,9 @@ if (is.na(gene_anno_db)) {
     cds <- classify_cells(cds, classifier, db=get(gene_anno_db),
         cluster_extend=TRUE, cds_gene_id_type="ENSEMBL")
 }
+print(table(pData(cds)$cell_type))
 
 # write cell types back to adata file
-obs$cell_type <- as.character(pd$cell_type)
-h5delete(adata_file, "/obs")
-h5write(obs, adata_file, "/obs")
+#obs$cell_type <- as.character(pd$cell_type)
+#h5delete(adata_file, "/obs")
+#h5write(obs, adata_file, "/obs")
