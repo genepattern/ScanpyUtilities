@@ -1,5 +1,5 @@
 JVMLevel=
-LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.04
+LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.05
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
 commandLine=bash /build/run_module.sh --python.executable=python --src.path=/build --data.file=<data.file> --output.basename=<output.basename> <genome> --annotate=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> --normalize=<normalize> <n.high.variance.genes> --compute.umap=<compute.umap> --compute.tsne=<compute.tsne>
@@ -11,7 +11,7 @@ language=any
 minGenePatternVersion=3.9.13
 name=ScanpyUtilities
 os=any
-job.docker.image=genepattern/scanpyutilities:0.2
+job.docker.image=genepattern/scanpyutilities:0.3
 job.cpuCount=4
 job.memory=32 Gb
 
