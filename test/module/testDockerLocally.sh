@@ -3,7 +3,7 @@
 TEST_DATA_DIR=${PWD}/data
 echo "Looking for test data in ${TEST_DATA_DIR}"
 
-docker build -t scanpy_utilities_module ../..
+#docker build -t scanpy_utilities_module ../..
 
 ORIG_DATA_FILE="${TEST_DATA_DIR}/ica_donor_5_channel_1.h5ad"
 ORIG_DATA_BASENAME="${TEST_DATA_DIR}/ica_donor_5_channel_1"

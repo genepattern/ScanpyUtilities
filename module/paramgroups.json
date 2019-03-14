@@ -1,20 +1,20 @@
 [
-{name: "Input and Output", 
-  parameters: ["data.file", "output.basename", "genome"]}, 
-{name: "Annotation", hidden: true, 
-  parameters: ["annotate"]},
-{name: "Cell Filtering", hidden: true,        
-  parameters: ["cells.min.counts", "cells.max.counts",  "cells.min.genes", "cells.max.genes"]},
-{name: "Gene Filtering", hidden: true,        
-  parameters: ["genes.min.counts", "genes.max.counts",  "genes.min.cells", "genes.max.cells"]},
-{name: "Cell Type Identification", hidden: true,
-  {parameters: ["cell.type.marker.file", "gene.annotation.database"]}
-{name: "Normalization", hidden: true,        
-  parameters: ["normalize"]},
-{name: "High Variance Genes", hidden: true,
-  parameters: ["n.high.variance.genes"]},
-{name: "Dimension Reduction", hidden: true,
-  parameters: ["compute.umap", "compute.tsne"]}
+{"name": "Input and Output", 
+  "parameters": ["data.file", "output.basename", "genome"]}, 
+{"name": "Annotation", "hidden": true, 
+  "parameters": ["annotate"]},
+{"name": "Cell Filtering", "hidden": true,        
+  "parameters": ["cells.min.counts", "cells.max.counts",  "cells.min.genes", "cells.max.genes"]},
+{"name": "Gene Filtering", "hidden": true,        
+  "parameters": ["genes.min.counts", "genes.max.counts",  "genes.min.cells", "genes.max.cells"]},
+{"name": "Cell Type Identification", "hidden": true,
+  "parameters": ["cell.type.marker.file", "gene.annotation.database"]},
+{"name": "Normalization", "hidden": true,        
+  "parameters": ["normalize"]},
+{"name": "High Variance Genes", "hidden": true,
+  "parameters": ["n.high.variance.genes"]},
+{"name": "Dimension Reduction", "hidden": true,
+  "parameters": ["compute.umap", "compute.tsne"]}
 ]
 
 
