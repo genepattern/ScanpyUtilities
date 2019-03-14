@@ -48,7 +48,7 @@ p2_value=
 p3_MODE=
 p3_TYPE=TEXT
 p3_default_value=0
-p3_description=Whether to annotate the dataset True/False
+p3_description=Add some information about Cells (n_counts, log_counts, n_genes) and Genes (n_counts, n_cells)
 p3_fileFormat=
 p3_flag=
 p3_name=annotate
@@ -255,7 +255,7 @@ p16_value=0\=no;1\=yes
 p17_MODE=
 p17_TYPE=TEXT
 p17_default_value=
-p17_description=If the data file parameter is in h5 format, the genome to use when converting to h5ad (anndata/scanpy) format, e.g. GRCh38.
+p17_description=Used when passing a 10x formatted hdf5 file. This is the 'genome' parameter in the read_10x_h5 function from scanpy.
 p17_fileFormat=
 p17_flag=
 p17_name=genome
