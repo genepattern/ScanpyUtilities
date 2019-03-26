@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0078)http://software.broadinstitute.org/cancer/software/genepattern/module_docs/223 -->
+<html class="">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>ScanpyUtilities GenePattern Module</title>
+  <link href="./assets/docstyle.css" media="all" rel="stylesheet">
+  <style type="text/css"></style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="authenticity_token" name="csrf-param">
+</head>
+<body >
+
+<script>
+</script>
+	
+	<div class="gp-content-header fluid">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<h1><big>ScanpyUtilities</big></h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				
+
+<dl class="dl-horizontal">
+	<dt>LSID</dt>
+	<dd>urn:lsid:broad.mit.edu:cancer.software.genepattern.module.analysis:00382</dd>
+	<dt>Author(s)</dt>
+	<dd>Tom Sherman, Fertig Lab, Johns Hopkins University, wrapped as a module by Ted Liefeld, Mesirov Lab, UCSD School of Medicine.</dd>
+	<dt>Contact(s)</dt>
+	<dd><p>Algorithm and scientific questions:&nbsp;Tom Sherman &lt;tsherma4 &nbsp;at&nbsp jhu dot edu&gt;</p>
+
+<p>Module wrapping issues:&nbsp; Ted Liefeld &lt;liefeld at cloud dot ucsd dot edu&gt;</p>
+</dd>
+</dl>
+
+
+<hr>
+
+<h2>Introduction</h2>
+
+<p></p>
+
+<p>&nbsp;</p>
+
+<h2>Algorithm</h2>
+
+
+
+<h2>References</h2>
+<p>Wolf, A.F., et al. (2018). SCANPY: large-scale single-cell gene expression data analysis. Genome Biology. 19:15</p>
+<p>Lun, A.T.L., et al. (2016). A step-by-step workflow for low-level analysis of single-cell RNA-seq data with Bioconductor. F1000Res., 5, 2122.</p>
+
+<p><a href="https://notebook.genepattern.org/services/sharing/notebooks/328/preview/">Census of Immune Cells: Single-Cell Workflow with CoGAPS</a></p>
+
+
+<h2>Input Files</h2>
+
+<ol>
+	<li>Data File *<br>
+	Datafile containing single-cell counts data in h5, h5ad, loom or mtx formats.</li>
+	
+	<tli>Cell type marker file<br/>
+	A text file describing the marker genes for each cell type. This should be in the format accepted by the R package garnett as defined in https://cole-trapnell-lab.github.io/garnett/docs/.</li>
+</ol>
+
+<h2>Output Files</h2>
+
+<ol>
+	<li>&lt;output basename&gt;.h5ad&lt;<br>
+	Output file in AnnData h5ad format.</li>
+</ol>
+
+<h2>Example Data</h2>
+
+<p>Sample data from the Human Cell Atlas Census of Immune Cells  is available at&nbsp;https://preview.data.humancellatlas.org/.&nbsp;</p>
+
+<h2>Requirements</h2>
+
+<p>GenePattern 3.9.11 or later (dockerized)</p>
+
+
+<h2>Parameters</h2>
+
+<table class="table table-striped">
+	
+	<tbody>
+		<tr><td colspan=2 ><h4>Input and Output</h4></td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>data file*</td>
+			<td>A file containing single-cell data. h5ad, loom and mtx file formats are accepted. An h5 file may also be provided if a genome is also provided which will be used converting to h5ad format.</td>
+		</tr>
+		<tr>
+			<td>output basename*</td>
+			<td>Base filename for the output file.</td>
+		</tr>
+		<tr>
+			<td>genome</td>
+			<td>When converting a 10x formated HDF5 file, the module will internally call read_10x_h5 from the scanpy package. This function expects a genome argument which specifies the name of the data set in the HDF5 file. e.g. 'GRCh38'</td>
+		</tr>
+		<tr><td colspan=2 ><h4>Annotation</h4></td></tr>
+		<tr><td colspan=2>Add count information to the data file. This will generate a new h5ad file that adds the number of counts expressed in each gene and cell as well as the total number of cells expresssed in each gene and vice versa. For cells new new annotations are called n_counts, log_counts, n_genes and for genes n_counts, n_cells.</td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>annotate*</td>
+			<td>Whether to perform annotation True/False.</td>
+		</tr>
+		<tr><td colspan=2><h4>Cell Filtering</h4></td></tr>
+		<tr><td colspan=2>Filter out cells based on the following thresholds.</td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>cells min counts</td>
+			<td>Filter out cells with fewer total counts than min counts</td>
+		</tr>
+		<tr>
+			<td>cells max counts</td>
+			<td>Filter out cells with more total counts than min counts</td>
+		</tr>
+		<tr>
+			<td>cells min genes</td>
+			<td>Filter out cells with fewer than min genes expressed</td>
+		</tr>
+		<tr>
+			<td>cells max genes</td>
+			<td>Filter out cells with more than min genes expressed</td>
+		</tr>
+		<tr><td colspan=2><h4>Gene Filtering</h4></td></tr>
+		<tr><td colspan=2>Filter out genes based on the following thresholds.</td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>genes min counts</td>
+			<td>Filter out cells with fewer total counts than min counts</td>
+		</tr>
+		<tr>
+			<td>genes max counts</td>
+			<td>Filter out cells with more total counts than min counts</td>
+		</tr>
+		<tr>
+			<td>genes min cells</td>
+			<td>Filter out cells with fewer than min genes expressed</td>
+		</tr>
+		<tr>
+			<td>genes max cells</td>
+			<td>Filter out cells with more than min genes expressed</td>
+		</tr>
+		<tr><td colspan=2><h4>Cell Type Identification</h4></td></tr>
+		<tr><td colspan=2>Convert (using the R package garnett) the gene names we've provided in the marker file to the gene ids we've used as the index in our data.</td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>cell type marker file</td>
+			<td>A text file describing the marker genes for each cell type. This should be in the format accepted by the R package garnett as defined in https://cole-trapnell-lab.github.io/garnett/docs/.</td>
+		</tr>
+		<tr>
+			<td>gene annotation database</td>
+			<td>This can be either "org.Hs.eg.db" (<a href="https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html">https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html</a>) or "org.Mm.eg.db" (<a href="https://bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html">https://bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html</a>). This annotation database allows this module (using the R package garnett) to convert the gene names we've provided in the marker file to the gene ids we've used as the index in our data.</td>
+		</tr>
+		<tr><td colspan=2><h4>Normalization</h4></td></tr>
+		<tr><td colspan=2>Normalization consists of the following steps. First it generates clusters for normalization by running pca, computing neighbors and running louvain clustering. Next it computes size factors of the clusters with scran. Finally it normalizes the data using the size factors and log(D+1).</td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>normalize*</td>
+			<td>Whether to perform normalization True/False. This step is performed after filtering if filtering is on.</td>
+		</tr>
+		
+		<tr><td colspan=2><h4>High Variance Genes</h4></td></tr>
+		<tr><td colspan=2>Filter and subset the data to retain only the N most variable genes.</td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>n high variance genes</td>
+			<td>Subset to the top N highly variable genes.</td>
+		</tr>
+		<tr><td colspan=2><h4>Dimernsion Reduction</h4></td></tr>
+		<tr><td colspan=2>Whether to compute UMAP True/False.</td></tr>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>computer tsne</td>
+			<td>Whether to compute TSNE True/False.</td>
+		</tr>
+	</tbody>
+</table>
+
+<p><span style="color: red;">*</span> - required</p>
+			</div>
+		</div>
+	</div>
+
+	</div>
+	<footer class="container fluid gp-footer">
+	<div class="fluid text-center">©2006-2019 Regents of the University of California &amp; The Broad Institute of MIT and Harvard</div> 
+</footer>
+
+
+
+<div id="feedly-mini" title="feedly Mini tookit"></div></body></html>
+
