@@ -1,5 +1,5 @@
 JVMLevel=
-LSID=urn\:lsid\:broad.mit.edu\:liefeld.cancer.software.genepattern.module.analysis\:00382\:0.06
+LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.06
 
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=SingleCell
