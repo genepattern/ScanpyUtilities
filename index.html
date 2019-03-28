@@ -70,7 +70,7 @@ This module was created to support a workflow tat roughly follows a standard pre
 
 <ol>
 	<li>Data File *<br>
-	Datafile containing single-cell counts data in h5, h5ad, loom or mtx formats.</li>
+	A file containing single-cell data. h5ad, loom and mtx file formats are accepted. A 10x formatted hdf5 file may also be provided along with the 'genome' argument. The file will be internally converted to an h5ad file before proceeding.</li>
 	
 	<tli>Cell type marker file<br/>
 	A text file describing the marker genes for each cell type. This should be in the format accepted by the R package garnett as defined in https://cole-trapnell-lab.github.io/garnett/docs/.</li>
@@ -104,7 +104,7 @@ This module was created to support a workflow tat roughly follows a standard pre
 		</tr>
 		<tr>
 			<td>data file*</td>
-			<td>A file containing single-cell data. h5ad, loom and mtx file formats are accepted. An h5 file may also be provided if a genome is also provided which will be used converting to h5ad format.</td>
+			<td>A file containing single-cell data. h5ad, loom and mtx file formats are accepted. A 10x formatted hdf5 file may also be provided along with the 'genome' argument. The file will be internally converted to an h5ad file before proceeding.</td>
 		</tr>
 		<tr>
 			<td>output basename*</td>
@@ -115,7 +115,7 @@ This module was created to support a workflow tat roughly follows a standard pre
 			<td>When converting a 10x formated HDF5 file, the module will internally call read_10x_h5 from the scanpy package. This function expects a genome argument which specifies the name of the data set in the HDF5 file. e.g. 'GRCh38'</td>
 		</tr>
 		<tr><td colspan=2 ><h4>Annotation</h4></td></tr>
-		<tr><td colspan=2>Add count information to the data file. This will generate a new h5ad file that adds the number of counts expressed in each gene and cell as well as the total number of cells expresssed in each gene and vice versa. For cells new new annotations are called n_counts, log_counts, n_genes and for genes n_counts, n_cells.</td></tr>
+		<tr><td colspan=2>Add count information to the data file. This will generate a new h5ad file that adds the number of counts expressed in each gene and cell as well as the total number of cells expresssed in each gene and vice versa. For cells new new annotations are called n_counts, log_counts, n_genes and for genes the new annotations are called n_counts, n_cells.</td></tr>
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
@@ -169,7 +169,7 @@ This module was created to support a workflow tat roughly follows a standard pre
 			<td>Filter out cells with more than min genes expressed</td>
 		</tr>
 		<tr><td colspan=2><h4>Cell Type Identification</h4></td></tr>
-		<tr><td colspan=2>Convert (using the R package garnett) the gene names we've provided in the marker file to the gene ids we've used as the index in our data.</td></tr>
+		<tr><td colspan=2>Run the cell type identification pipeline provided in the R package garnett. This pipeline expects a non-normalized count matrix along with a cell type marker file. It trains a classifier based on the the marker genes provided and adds a cell type annotation to each cell in the data set based on this classifier. The module will extract the count matrix from the h5ad data file and create a new h5ad file with the added annotations. For more information see https://cole-trapnell-lab.github.io/garnett/docs/.</td></tr>
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
@@ -180,10 +180,10 @@ This module was created to support a workflow tat roughly follows a standard pre
 		</tr>
 		<tr>
 			<td>gene annotation database</td>
-			<td>This can be either "org.Hs.eg.db" (<a href="https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html">https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html</a>) or "org.Mm.eg.db" (<a href="https://bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html">https://bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html</a>). This annotation database allows this module (using the R package garnett) to convert the gene names we've provided in the marker file to the gene ids we've used as the index in our data.</td>
+			<td>This can be either "org.Hs.eg.db" (https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html) or "org.Mm.eg.db" (https://bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html). This annotation database is used to convert the gene names we've provided in the marker file to the gene ids we've used as the index in our data. If this is left blank, an exact match between the marker file and the gene indices is expected.</td>
 		</tr>
 		<tr><td colspan=2><h4>Normalization</h4></td></tr>
-		<tr><td colspan=2>Normalization consists of the following steps. First it generates clusters for normalization by running pca, computing neighbors and running louvain clustering. Next it computes size factors of the clusters with scran. Finally it normalizes the data using the size factors and log(D+1).</td></tr>
+		<tr><td colspan=2>Run the single-cell normalization pipeline provided in the R package scran. This pipeline expects a count matrix along with a cluster index for each cell. The clustering is done as a prior step, in this case using the Louvain clustering algorithm implemented in scanpy. Then the data is divided by the size factors computed from scran for each cell. Finally, a log transformation is applied to the data to give the final normalized output. This is stored in a new h5ad file.</td></tr>
 		<tr>
 			<th>Name</th>
 			<th>Description</th>
