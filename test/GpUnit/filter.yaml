@@ -1,0 +1,18 @@
+#
+# ant -f ${GPUNIT_HOME}/build.xml -Dgpunit.diffStripTrailingCR="--strip-trailing-cr" -Dgp.host="beta.genepattern.org" -Dgp.url="https://beta.genepattern.org" -Dgp.user="ted-dev" -Dgp.password="" -Dgpunit.testfolder=`pwd` gpunit
+#
+name: ScanpyFiltering
+module: ScanpyUtilities
+params: 
+    "data.file":  https://datasets.genepattern.org/data/module_support_files/CoGAPS/full_data_annotated.h5ad
+    "output.basename": "full_data"
+    "cells.min.counts":  "1000"
+    "cells.max.counts": "20000"
+    "cells.min.genes": "500"
+    "genes.min.cells": "20"
+assertions:
+    jobStatus: success
+    files:
+        "full_data_cell_filter.h5ad":  !!null
+        "full_data_gene_filter.h5ad":  !!null
+

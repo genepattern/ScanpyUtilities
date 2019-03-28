@@ -1,0 +1,19 @@
+#
+# ant -f ${GPUNIT_HOME}/build.xml -Dgpunit.diffStripTrailingCR="--strip-trailing-cr" -Dgp.host="beta.genepattern.org" -Dgp.url="https://beta.genepattern.org" -Dgp.user="ted-dev" -Dgp.password="" -Dgpunit.testfolder=`pwd` gpunit
+#
+name: ScanpyFinalPreprocessing
+module: ScanpyUtilities
+params: 
+    "data.file":  https://datasets.genepattern.org/data/module_support_files/CoGAPS/donor_5_cell_types.h5ad
+    "output.basename": "donor_5"
+    "normalize":  "yes"
+    "n.high.variance.genes": "3000"
+    "compute.umap": "yes"
+    "compute.tsne": "yes"
+assertions:
+    jobStatus: success
+    files:
+        "donor_5_dim_reduce.h5ad":  !!null
+        "donor_5_high_variance_genes_annotated.h5ad":  !!null
+        "donor_5_high_variance_genes_subset.h5ad":  !!null
+

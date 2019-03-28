@@ -1,0 +1,14 @@
+#
+# ant -f ${GPUNIT_HOME}/build.xml -Dgpunit.diffStripTrailingCR="--strip-trailing-cr" -Dgp.host="beta.genepattern.org" -Dgp.url="https://beta.genepattern.org" -Dgp.user="ted-dev" -Dgp.password="" -Dgpunit.testfolder=`pwd` gpunit
+#
+name: ScanpyAnnotate
+module: ScanpyUtilities
+params: 
+    "data.file":  https://datasets.genepattern.org/data/module_support_files/CoGAPS/full_data.h5ad
+    "output.basename": "full_data"
+    "annotate":  "1"
+assertions:
+    jobStatus: success
+    files:
+        "full_data_annotated.h5ad":  !!null
+
