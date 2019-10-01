@@ -34,9 +34,16 @@ TEST_2="${BASE_CMD} \
     --cell.type.marker.file=${TEST_DATA_DIR}/ensembl_markers.txt
 "
 
+TEST_3="${BASE_CMD} \
+    --data.file=${TEST_DATA_DIR}/ica_cord_blood_donor_5_filtered.h5ad \
+    --cell.type.marker.file=${TEST_DATA_DIR}/ica_cord_blood_markers.txt \
+    --gene.annotation.database=org.Hs.eg.db
+"
+
+
 declare -a tests=(
-    "${TEST_1}"
     "${TEST_2}"
+    "${TEST_3}"
 )
 
 for tst in "${tests[@]}"
