@@ -14,7 +14,8 @@ minGenePatternVersion=3.9.13
 name=ScanpyUtilities
 
 os=any
-job.docker.image=genepattern/scanpyutilities:0.3.1
+job.docker.image=genepattern/scanpyutilities:0.9
+
 job.cpuCount=4
 job.memory=32 Gb
 
