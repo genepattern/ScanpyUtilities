@@ -2,7 +2,7 @@ JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.06.1
 
 author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
-categories=SingleCell
+categories=Single-Cell
 commandLine=bash /build/run_module.sh --python.executable=python --src.path=/build --data.file=<data.file> --output.basename=<output.basename> <genome> --annotate=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> <gene.annotation.database> --normalize=<normalize> <n.high.variance.genes> --compute.umap=<compute.umap> --compute.tsne=<compute.tsne>
 
 cpuType=any
@@ -290,6 +290,6 @@ quality=${quality.level}
 requiredPatchLSIDs=
 requiredPatchURLs=
 taskDoc=doc.html
-taskType=SingleCell
+taskType=Single-Cell
 userid=ted
 version=Working revision from Gevaert lab git repo on 10/16/18 
