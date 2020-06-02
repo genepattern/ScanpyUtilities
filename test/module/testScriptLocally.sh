@@ -3,9 +3,9 @@
 TEST_DATA_DIR=${PWD}/data
 echo "Looking for test data in ${TEST_DATA_DIR}"
 
-ORIG_DATA_FILE="${TEST_DATA_DIR}/ica_donor_5_channel_1.h5ad"
-ORIG_DATA_BASENAME="${TEST_DATA_DIR}/ica_donor_5_channel_1"
-eval "rm ${TEST_DATA_DIR}/ica_donor_5_channel_1_*"
+#ORIG_DATA_FILE="${TEST_DATA_DIR}/ica_donor_5_channel_1.h5ad"
+ORIG_DATA_FILE="${TEST_DATA_DIR}/ica_cord_blood_full_data.h5ad"
+ORIG_DATA_BASENAME="${TEST_DATA_DIR}/ica_cord_blood_full_data"
 
 
 CMD="bash ../../module/run_module.sh \

@@ -41,15 +41,16 @@ RUN R -e 'BiocManager::install("org.Mm.eg.db")'
 RUN R -e 'remotes::install_github("cole-trapnell-lab/garnett")'
 
 # install python dependencies
-RUN pip install numpy==1.15.4
-RUN pip install pandas==0.23.4
-RUN pip install scipy==1.1.0
-RUN pip install anndata==0.6.18
+RUN pip install numpy==1.16.4
+RUN pip install pandas==0.24.2
+RUN pip install scipy==1.3.0
+RUN pip install anndata==0.6.20
 RUN pip install python-igraph==0.7.1.post6
 RUN pip install louvain==0.6.1
-RUN pip install scanpy==1.3.3
+RUN pip install scanpy==1.5.0
 RUN pip install cmake==3.13.3
 RUN pip install MulticoreTSNE==0.1
+RUN pip install loompy==3.0.6
 
 # copy module files
 COPY module/* /build/
