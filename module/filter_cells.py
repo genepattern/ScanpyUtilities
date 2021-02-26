@@ -1,5 +1,5 @@
 import sys
-import scanpy.api as sc
+import scanpy as sc
 
 print("cell filtering input:", sys.argv[1])
 print("cell filtering output:", sys.argv[2])
@@ -30,4 +30,3 @@ if max_genes > 0:
     print("cells remaining: ", adata.shape[0])
 
 adata.write(sys.argv[2], compression='gzip', compression_opts=1)
-

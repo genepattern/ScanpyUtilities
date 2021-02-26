@@ -1,5 +1,5 @@
 import sys
-import scanpy.api as sc
+import scanpy as sc
 from scipy.sparse import csr_matrix
 
 print("normalizing using size factors and log(D + 1)")

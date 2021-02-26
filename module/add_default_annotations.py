@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-import scanpy.api as sc
+import scanpy as sc
 
 print("annotation input:", sys.argv[1])
 adata = sc.read(sys.argv[1])
@@ -21,4 +21,3 @@ if 'n_cells' not in adata.var.keys():
 
 print("annotation output:", sys.argv[2])
 adata.write(sys.argv[2], compression='gzip', compression_opts=1)
-

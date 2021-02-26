@@ -1,5 +1,5 @@
 import sys
-import scanpy.api as sc
+import scanpy as sc
 
 input_file = sys.argv[1]
 output_file = sys.argv[2]
