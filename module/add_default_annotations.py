@@ -20,4 +20,4 @@ if 'n_cells' not in adata.var.keys():
     adata.var['n_cells'] = np.array(rsum)[0].tolist()
 
 print("annotation output:", sys.argv[2])
-adata.write(sys.argv[2], compression='gzip', compression_opts=1)
+adata.write(sys.argv[2], compression='gzip')#, compression_opts=1)

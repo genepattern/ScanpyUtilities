@@ -24,4 +24,4 @@ if run_tsne == 1:
     sc.tl.tsne(adata)
 
 print("dimension reduction output: ", output_file)
-adata.write(output_file, compression='gzip', compression_opts=1)
+adata.write(output_file, compression='gzip')#, compression_opts=1)

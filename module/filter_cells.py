@@ -29,4 +29,4 @@ if max_genes > 0:
     sc.pp.filter_cells(adata, max_genes=max_genes)
     print("cells remaining: ", adata.shape[0])
 
-adata.write(sys.argv[2], compression='gzip', compression_opts=1)
+adata.write(sys.argv[2], compression='gzip')#, compression_opts=1)

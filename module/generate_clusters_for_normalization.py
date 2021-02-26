@@ -16,4 +16,4 @@ sc.pp.neighbors(adata)
 print("running louvain clustering")
 sc.tl.louvain(adata, key_added='groups', resolution=0.5)
 
-adata.write("temp_clustered_for_scran.h5ad", compression='gzip', compression_opts=1)
+adata.write("temp_clustered_for_scran.h5ad", compression='gzip')#, compression_opts=1)

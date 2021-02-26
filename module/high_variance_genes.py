@@ -17,4 +17,4 @@ sc.pp.filter_genes_dispersion(adata, flavor='cell_ranger',
 adata.write(anno_outfile, compression='gzip', compression_opts=1)
 subset = adata[:, adata.var['highly_variable']]
 sc.pp.filter_cells(subset, min_genes=1)
-subset.write(subset_outfile, compression='gzip', compression_opts=1)
+subset.write(subset_outfile, compression='gzip')#, compression_opts=1)

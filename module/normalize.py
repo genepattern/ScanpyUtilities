@@ -14,4 +14,4 @@ adata.X /= adata.obs['size_factors'].values[:,None]
 sc.pp.log1p(adata)
 
 adata.X = csr_matrix(adata.X)
-adata.write(sys.argv[2], compression='gzip', compression_opts=1)
+adata.write(sys.argv[2], compression='gzip')#, compression_opts=1)
