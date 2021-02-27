@@ -2,7 +2,7 @@
 {"name": "Input and Output", 
   "parameters": ["data.file", "output.basename", "genome"]}, 
 {"name": "Annotation", "hidden": true, 
-  "description":"Add count information to the data file. This will generate a new h5ad file that adds the number of counts expressed in each gene and cell as well as the total number of cells expresssed in each gene and vice versa.  For cells new new annotations are called  n_counts, log_counts, n_genes and for genes the new annotations are called n_counts, n_cells.",
+  "description":"Add count information to the data file. This will generate a new h5ad file that adds the number of counts expressed in each gene and cell as well as the total number of cells expresssed in each gene and vice versa.  For cells the new annotations are called  n_counts, log_counts, n_genes and for genes the new annotations are called n_counts, n_cells.",
   "parameters": ["annotate"]},
 {"name": "Cell Filtering", "hidden": true,        
    "description":"Filter out cells based on the following thresholds.", 
@@ -23,5 +23,3 @@
   "description":"Compute UMAP or TSNE coordinates for visualization.",
   "parameters": ["compute.umap", "compute.tsne"]}
 ]
-
-
