@@ -6,10 +6,10 @@ print("computing size factors with scran")
 
 x <- h5read("temp_clustered_for_scran.h5ad", "/obs")
 groups <- x$groups
-if (!is.null(x$index)){
-names(groups) <- x$index
+if (!is.null(x$index)) {
+ names(groups) <- x$index
 } else {
-names(groups) <- x$`_index`
+ names(groups) <- x$`_index`
 }
 
 raw_data <- as.numeric(h5read("temp_clustered_for_scran.h5ad", "/X/data"))
