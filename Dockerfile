@@ -62,4 +62,4 @@ RUN pip --version
 RUN R --version
 
 # default command
-CMD ["/bin/bash"]
+CMD ["python --version"]

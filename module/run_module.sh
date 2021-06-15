@@ -222,7 +222,7 @@ if [ ! -z ${HIGH_VAR_GENES} ]; then
     echo "-- selecting ${HIGH_VAR_GENES} high variance genes --"
     eval "${PY_EXEC} ${SRC_PATH}/high_variance_genes.py ${DATA_FILE} ${OUTPUT_BASENAME} ${HIGH_VAR_GENES}"
     exitOnError $? "Error filtering high variance genes."
-    DATA_FILE="${OUTPUT_BASENAME}_high_variance_genes_subset.h5ad"
+    DATA_FILE="${OUTPUT_BASENAME}_high_variance_genes_annotated.h5ad"
 fi
 
 if [[ "${COMPUTE_UMAP}" -eq 1 || "${COMPUTE_TSNE}" -eq 1 ]]; then
