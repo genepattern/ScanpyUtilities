@@ -30,7 +30,7 @@ if max_genes > 0:
     print("filtering out cells with more than", max_genes, "genes")
     sc.pp.filter_cells(adata, max_genes=max_genes)
     print("cells remaining: ", adata.shape[0])
-if mito_file != "":
+if mito_file != "SKIP":
     with open(mito_file) as f:
         mito_genes = f.read().splitlines()
     mito_genes = list(set([sub.replace('-I', '') for sub in mito_genes]))

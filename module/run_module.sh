@@ -172,7 +172,7 @@ if [ ! -z ${CELLS_MIN_COUNTS} ] || [ ! -z ${CELLS_MAX_COUNTS} ] || [ ! -z ${CELL
     if [ -z ${CELLS_MAX_COUNTS} ]; then CELLS_MAX_COUNTS="0"; fi
     if [ -z ${CELLS_MIN_GENES} ]; then CELLS_MIN_GENES="0"; fi
     if [ -z ${CELLS_MAX_GENES} ]; then CELLS_MAX_GENES="0"; fi
-    if [ -z ${MITO_FILE} ]; then MITO_FILE=""; fi
+    if [ -z ${MITO_FILE} ]; then MITO_FILE="SKIP"; fi
     if [ -z ${CELLS_MAX_MT_PCT} ]; then CELLS_MAX_MT_PCT="100"; fi
     FULL_OUTPUT="${OUTPUT_BASENAME}_cell_filter.h5ad"
     eval "${PY_EXEC} ${SRC_PATH}/filter_cells.py ${DATA_FILE} ${FULL_OUTPUT} ${CELLS_MIN_COUNTS} ${CELLS_MAX_COUNTS} ${CELLS_MIN_GENES} ${CELLS_MAX_GENES} ${MITO_FILE} ${CELLS_MAX_MT_PCT}"
