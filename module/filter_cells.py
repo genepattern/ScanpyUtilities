@@ -11,7 +11,7 @@ max_counts = int(sys.argv[4])
 min_genes = int(sys.argv[5])
 max_genes = int(sys.argv[6])
 mito_file = sys.argv[7]
-mito_pct = int(sys.argv[7])
+mito_pct = int(sys.argv[8])
 
 print("number of cells: ", adata.shape[0])
 if min_counts > 0:
