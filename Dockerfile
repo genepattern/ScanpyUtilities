@@ -45,7 +45,7 @@ RUN R -e 'remotes::install_github("cole-trapnell-lab/garnett")'
 RUN pip install numpy==1.19.2
 RUN pip install pandas==1.2.2
 RUN pip install scipy==1.5.3
-RUN pip install anndata==0.7.5
+RUN pip install anndata==0.7.6
 RUN pip install python-igraph==0.8.2
 RUN pip install louvain==0.7.0
 RUN pip install scanpy==1.7
