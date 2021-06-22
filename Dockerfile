@@ -14,6 +14,7 @@ RUN apt-get install libcurl4-gnutls-dev --yes
 RUN apt-get install libhdf5-serial-dev --yes
 # RUN apt-get install libigraph0-dev --yes #This should install automatically with python-igraph as the repo version fails
 RUN apt-get install libxml2-dev --yes
+RUN apt-get install swapspace --yes
 
 # install python with conda
 RUN mkdir /conda && \
