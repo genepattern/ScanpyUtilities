@@ -1,5 +1,5 @@
 import sys
-import scanpy.api as sc
+import scanpy as sc
 
 input_file = sys.argv[1]
 output_basename = sys.argv[2]
@@ -17,4 +17,4 @@ sc.pp.filter_genes_dispersion(adata, flavor='cell_ranger',
 adata.write(anno_outfile, compression='gzip', compression_opts=1)
 subset = adata[:, adata.var['highly_variable']]
 sc.pp.filter_cells(subset, min_genes=1)
-subset.write(subset_outfile, compression='gzip', compression_opts=1)
+subset.write(subset_outfile, compression='gzip')#, compression_opts=1)

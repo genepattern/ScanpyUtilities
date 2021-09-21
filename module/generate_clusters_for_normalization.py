@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-import scanpy.api as sc
+import scanpy as sc
 
 print("normalization input:", sys.argv[1])
 print("clustering cells to use as input for scran")
@@ -16,6 +16,4 @@ sc.pp.neighbors(adata)
 print("running louvain clustering")
 sc.tl.louvain(adata, key_added='groups', resolution=0.5)
 
-adata.write("temp_clustered_for_scran.h5ad", compression='gzip', compression_opts=1)
-
-
+adata.write("temp_clustered_for_scran.h5ad", compression='gzip')#, compression_opts=1)

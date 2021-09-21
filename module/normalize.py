@@ -1,5 +1,5 @@
 import sys
-import scanpy.api as sc
+import scanpy as sc
 from scipy.sparse import csr_matrix
 
 print("normalizing using size factors and log(D + 1)")
@@ -14,4 +14,4 @@ adata.X /= adata.obs['size_factors'].values[:,None]
 sc.pp.log1p(adata)
 
 adata.X = csr_matrix(adata.X)
-adata.write(sys.argv[2], compression='gzip', compression_opts=1)
+adata.write(sys.argv[2], compression='gzip')#, compression_opts=1)

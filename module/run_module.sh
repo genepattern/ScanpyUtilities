@@ -37,6 +37,11 @@ do
         echo "data file: ${DATA_FILE}"
         ;;
 
+        --mito.file=*)
+        MITO_FILE="${i#*=}"
+        echo "mitocondrial genes file: ${MITO_FILE}"
+        ;;
+
         --output.basename=*)
         OUTPUT_BASENAME="${i#*=}"
         echo "output basename: ${OUTPUT_BASENAME}"
@@ -70,6 +75,11 @@ do
         --cells.max.genes=*)
         CELLS_MAX_GENES="${i#*=}"
         echo "cells max genes: ${CELLS_MAX_GENES}"
+        ;;
+
+        --cells.max.mt.pct=*)
+        CELLS_MAX_MT_PCT="${i#*=}"
+        echo "cells max mitocondrial percent: ${CELLS_MAX_MT_PCT}"
         ;;
 
         --genes.min.counts=*)
@@ -156,14 +166,16 @@ if [ ! -z ${ANNOTATE} ] && [ "${ANNOTATE}" -eq 1 ]; then
     DATA_FILE=${FULL_OUTPUT}
 fi
 
-if [ ! -z ${CELLS_MIN_COUNTS} ] || [ ! -z ${CELLS_MAX_COUNTS} ] || [ ! -z ${CELLS_MIN_GENES} ] || [ ! -z ${CELLS_MAX_GENES} ] ; then
+if [ ! -z ${CELLS_MIN_COUNTS} ] || [ ! -z ${CELLS_MAX_COUNTS} ] || [ ! -z ${CELLS_MIN_GENES} ] || [ ! -z ${CELLS_MAX_GENES} || [ ! -z ${MITO_FILE}] ; then
     echo "-- filtering cells --"
     if [ -z ${CELLS_MIN_COUNTS} ]; then CELLS_MIN_COUNTS="0"; fi
     if [ -z ${CELLS_MAX_COUNTS} ]; then CELLS_MAX_COUNTS="0"; fi
     if [ -z ${CELLS_MIN_GENES} ]; then CELLS_MIN_GENES="0"; fi
     if [ -z ${CELLS_MAX_GENES} ]; then CELLS_MAX_GENES="0"; fi
+    if [ -z ${MITO_FILE} ]; then MITO_FILE="SKIP"; fi
+    if [ -z ${CELLS_MAX_MT_PCT} ]; then CELLS_MAX_MT_PCT="100"; fi
     FULL_OUTPUT="${OUTPUT_BASENAME}_cell_filter.h5ad"
-    eval "${PY_EXEC} ${SRC_PATH}/filter_cells.py ${DATA_FILE} ${FULL_OUTPUT} ${CELLS_MIN_COUNTS} ${CELLS_MAX_COUNTS} ${CELLS_MIN_GENES} ${CELLS_MAX_GENES}"
+    eval "${PY_EXEC} ${SRC_PATH}/filter_cells.py ${DATA_FILE} ${FULL_OUTPUT} ${CELLS_MIN_COUNTS} ${CELLS_MAX_COUNTS} ${CELLS_MIN_GENES} ${CELLS_MAX_GENES} ${MITO_FILE} ${CELLS_MAX_MT_PCT}"
     exitOnError $? "Error during cell filtering."
     DATA_FILE=${FULL_OUTPUT}
 fi
@@ -222,7 +234,7 @@ if [ ! -z ${HIGH_VAR_GENES} ]; then
     echo "-- selecting ${HIGH_VAR_GENES} high variance genes --"
     eval "${PY_EXEC} ${SRC_PATH}/high_variance_genes.py ${DATA_FILE} ${OUTPUT_BASENAME} ${HIGH_VAR_GENES}"
     exitOnError $? "Error filtering high variance genes."
-    DATA_FILE="${OUTPUT_BASENAME}_high_variance_genes_subset.h5ad"
+    DATA_FILE="${OUTPUT_BASENAME}_high_variance_genes_annotated.h5ad"
 fi
 
 if [[ "${COMPUTE_UMAP}" -eq 1 || "${COMPUTE_TSNE}" -eq 1 ]]; then
