@@ -4,7 +4,7 @@
 name: ScanpyFinalPreprocessing
 module: ScanpyUtilities
 params: 
-    "data.file":  https://datasets.genepattern.org/data/module_support_files/CoGAPS/donor_5_cell_types.h5ad
+    "data.file": donor_5_cell_types.h5ad 
     "output.basename": "donor_5"
     "normalize":  "yes"
     "n.high.variance.genes": "3000"

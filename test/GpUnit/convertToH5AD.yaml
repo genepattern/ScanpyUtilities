@@ -4,7 +4,7 @@
 name: ScanpyConvert
 module: ScanpyUtilities
 params: 
-    "data.file":  https://s3.amazonaws.com/preview-ica-expression-data/ica_cord_blood_h5.h5
+    "data.file":  https://datasets.genepattern.org/data/module_support_files/CoGAPS/ica_cord_blood_h5.h5
     "output.basename": "full_data"
     "genome":  "GRCh38"
 assertions:
