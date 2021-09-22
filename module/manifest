@@ -1,9 +1,10 @@
+#Wed, 22 Sep 2021 13:28:22 -0700
 JVMLevel=
-LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:0.06.1
+LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:999999999
 
-author=Tom Sherman, Johns Hopkins University, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
+author=Tom Sherman, Johns Hopkins University, modified by Anthony Castanza, UCSD, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=Single-Cell
-commandLine=bash /build/run_module.sh --python.executable=python --src.path=/build --data.file=<data.file> <mtGenes> --output.basename=<output.basename> <genome> --annotate=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <cells.max.mt.pct> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> <gene.annotation.database> --normalize=<normalize> <n.high.variance.genes> --compute.umap=<compute.umap> --compute.tsne=<compute.tsne> 
+commandLine=bash /build/run_module.sh --python.executable\=python --src.path\=/build --data.file\=<data.file> <mtGenes> --output.basename\=<output.basename> <genome> --annotate\=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <cells.max.mt.pct> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> <gene.annotation.database> --normalize\=<normalize> <n.high.variance.genes> --compute.umap\=<compute.umap> --compute.tsne\=<compute.tsne> 
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -14,7 +15,7 @@ minGenePatternVersion=3.9.13
 name=ScanpyUtilities
 
 os=any
-job.docker.image=genepattern/scanpyutilities:0.9
+job.docker.image=genepattern/scanpyutilities\:x
 
 job.cpuCount=4
 job.memory=32 Gb
@@ -320,7 +321,7 @@ p20_value=0\=no;1\=yes
 
 
 privacy=public
-publicationDate=01/14/2019 11\:23 
+publicationDate=09/22/2021 13\:28 
 quality=${quality.level}
 requiredPatchLSIDs=
 requiredPatchURLs=
