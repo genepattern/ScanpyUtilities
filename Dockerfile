@@ -71,4 +71,4 @@ RUN pip --version
 RUN R --version
 
 # default command
-CMD ["python --version"]
+CMD ["python", "--version"]
