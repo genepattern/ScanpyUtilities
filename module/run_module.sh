@@ -166,7 +166,7 @@ if [ ! -z ${ANNOTATE} ] && [ "${ANNOTATE}" -eq 1 ]; then
     DATA_FILE=${FULL_OUTPUT}
 fi
 
-if [ ! -z ${CELLS_MIN_COUNTS} ] || [ ! -z ${CELLS_MAX_COUNTS} ] || [ ! -z ${CELLS_MIN_GENES} ] || [ ! -z ${CELLS_MAX_GENES} || [ ! -z ${MITO_FILE}] ; then
+if [ ! -z ${CELLS_MIN_COUNTS} ] || [ ! -z ${CELLS_MAX_COUNTS} ] || [ ! -z ${CELLS_MIN_GENES} ] || [ ! -z ${CELLS_MAX_GENES} ] || [ ! -z ${MITO_FILE} ] ; then
     echo "-- filtering cells --"
     if [ -z ${CELLS_MIN_COUNTS} ]; then CELLS_MIN_COUNTS="0"; fi
     if [ -z ${CELLS_MAX_COUNTS} ]; then CELLS_MAX_COUNTS="0"; fi
