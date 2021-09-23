@@ -46,7 +46,7 @@ RUN echo "Here goes"
 # cython is new addition 9/21/21
 RUN pip install Cython==0.29.24
 RUN pip install numpy==1.20.3
-RUN pip install pandas==1.3.3
+RUN pip install pandas==1.2.5
 RUN pip install scipy==1.7.1
 RUN pip install anndata==0.7.6
 
