@@ -59,10 +59,6 @@ RUN pip install cmake==3.18.2
 RUN pip install MulticoreTSNE==0.1
 RUN pip install loompy==3.0.6
 
-# Updated versions to test
-#RUN pip install pandas==1.3.3
-#RUN pip install scanpy==1.8.1
-
 # copy module files
 COPY module/* /build/
 RUN chmod a+x /build/run_module.sh
