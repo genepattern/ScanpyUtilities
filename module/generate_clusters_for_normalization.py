@@ -6,6 +6,7 @@ print("normalization input:", sys.argv[1])
 print("clustering cells to use as input for scran")
 
 adata = sc.read(sys.argv[1])
+
 if len(set(adata.obs_names)) != len(adata.obs_names):
 	adata.obs_names_make_unique()
 
