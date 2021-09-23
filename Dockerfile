@@ -53,7 +53,7 @@ RUN pip install scipy==1.5.3
 RUN pip install anndata==0.7.6
 RUN pip install python-igraph==0.8.2
 RUN pip install louvain==0.7.0
-RUN pip install scanpy==1.8.1
+RUN pip install scanpy==1.7.2
 RUN pip install cmake==3.18.2
 RUN pip install MulticoreTSNE==0.1
 RUN pip install loompy==3.0.6
