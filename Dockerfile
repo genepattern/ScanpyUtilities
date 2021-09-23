@@ -1,5 +1,5 @@
 # copyright 2017-2018 Regents of the University of California and the Broad Institute. All rights reserved.
-FROM r-base:3.6.3
+FROM r-base:4.0.3
 
 MAINTAINER Ted Liefeld <jliefeld@cloud.ucsd.edu>
 
@@ -14,6 +14,8 @@ RUN apt-get install libcurl4-gnutls-dev --yes
 RUN apt-get install libhdf5-serial-dev --yes
 #RUN apt-get install libigraph0-dev --yes
 RUN apt-get install libxml2-dev --yes
+RUN apt-get install libtool --yes
+RUN apt-get install flex bison --yes
 
 # install python with conda
 RUN mkdir /conda && \
@@ -45,16 +47,12 @@ RUN echo "Here goes"
 # install python dependencies
 # cython is new addition 9/21/21
 RUN pip install Cython==0.29.24
+RUN pip install numba==0.52.0
 RUN pip install numpy==1.20.3
-RUN pip install pandas==1.3.3
+RUN pip install pandas==1.2.2
 RUN pip install scipy==1.7.1
 RUN pip install anndata==0.7.6
-
-RUN apt-get install libtool --yes
 RUN pip install python-igraph==0.9.6
-
-RUN apt-get install flex bison --yes
-
 RUN pip install louvain==0.7.0
 RUN pip install scanpy==1.8.1
 RUN pip install cmake==3.18.2
@@ -71,4 +69,4 @@ RUN pip --version
 RUN R --version
 
 # default command
-CMD ["python --version"]
+CMD ["python", "--version"]
