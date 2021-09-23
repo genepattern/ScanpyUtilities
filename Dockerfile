@@ -1,5 +1,5 @@
 # copyright 2017-2018 Regents of the University of California and the Broad Institute. All rights reserved.
-FROM r-base:3.6.3
+FROM r-base:4.0.3
 
 MAINTAINER Ted Liefeld <jliefeld@cloud.ucsd.edu>
 
@@ -47,6 +47,7 @@ RUN echo "Here goes"
 # install python dependencies
 # cython is new addition 9/21/21
 RUN pip install Cython==0.29.24
+RUN pip install numba==0.52.0
 RUN pip install numpy==1.19.2
 RUN pip install pandas==1.2.2
 RUN pip install scipy==1.5.3
