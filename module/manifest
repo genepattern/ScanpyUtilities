@@ -1,4 +1,4 @@
-#Wed, 22 Sep 2021 13:28:22 -0700
+#Tue, 28 Sep 2021 15:04:16 -0700
 JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:999999999
 
@@ -321,7 +321,7 @@ p20_value=0\=no;1\=yes
 
 
 privacy=public
-publicationDate=09/22/2021 13\:28 
+publicationDate=09/28/2021 15\:04 
 quality=${quality.level}
 requiredPatchLSIDs=
 requiredPatchURLs=
