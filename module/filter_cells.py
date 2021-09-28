@@ -1,4 +1,5 @@
 import sys
+import re
 import scanpy as sc
 
 print("cell filtering input:", sys.argv[1])
@@ -33,7 +34,7 @@ if max_genes > 0:
 if mito_file != "SKIP":
     with open(mito_file) as f:
         mito_genes = f.read().splitlines()
-    mito_genes = list(set([sub.replace('-I', '') for sub in mito_genes]))
+    mito_genes = list(set([re.sub('-I$', '', sub) for sub in mito_genes]))
     adata.var['mt'] = [x in mito_genes for x in adata.var_names]
     print("filtering out cells with less than", mito_pct, "% mitochondrial fraction")
     sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
