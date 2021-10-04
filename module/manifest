@@ -328,4 +328,4 @@ requiredPatchURLs=
 taskDoc=doc.html
 taskType=Single-Cell
 userid=acastanza
-version=Updated h5ad version and added mitochondrial filtering support on 6/18/2021 
+version=Updated h5ad version and added mitochondrial filtering support on 10/04/2021 
