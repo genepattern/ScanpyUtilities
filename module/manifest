@@ -4,7 +4,7 @@ LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:0038
 
 author=Tom Sherman, Johns Hopkins University, modified by Anthony Castanza, UCSD, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=Single-Cell
-commandLine=bash /build/run_module.sh --python.executable\=python --src.path\=/build --data.file\=<data.file> <mtGenes> --output.basename\=<output.basename> <genome> --annotate\=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <cells.max.mt.pct> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> <gene.annotation.database> --normalize\=<normalize> <n.high.variance.genes> --compute.umap\=<compute.umap> --compute.tsne\=<compute.tsne> 
+commandLine=bash /build/run_module.sh --python.executable\=python --src.path\=/build --data.file\=<data.file> <mtGenes> --output.basename\=<output.basename> <genome> --annotate\=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <cells.max.mt.pct> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> <gene.annotation.database> <cell.type.marker.id.type> --normalize\=<normalize> <n.high.variance.genes> --compute.umap\=<compute.umap> --compute.tsne\=<compute.tsne> 
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -218,7 +218,7 @@ p13_value=
 p14_MODE=IN
 p14_TYPE=FILE
 p14_default_value=
-p14_description=A text file describing the marker genes for each cell type. This should be in the format accepted by the R package garnett as defined in https\://cole-trapnell-lab.github.io/garnett/docs/.
+p14_description=A text file describing the marker genes for each cell type. This should be in the format accepted by the R package garnett as defined in https\://cole-trapnell-lab.github.io/garnett/docs/. Alternatively, a pre-trained garnett classifier in .RDS format can be supplied.
 p14_fileFormat=txt
 p14_flag=--cell.type.marker.file\=
 p14_name=cell.type.marker.file
@@ -229,44 +229,42 @@ p14_prefix_when_specified=--cell.type.marker.file\=
 p14_type=java.io.File
 p14_value=
 
-
 p15_MODE=
 p15_TYPE=TEXT
-p15_default_value=
-p15_description=This can be either "org.Hs.eg.db" (https\://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html) or "org.Mm.eg.db" (https\://bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html). This annotation database is used to convert the gene names we've provided in the marker file to the gene ids we've used as the index in our data. If this is left blank, an exact match between the marker file and the gene indices is expected.
+p15_default_value=SYMBOL
+p15_description=Choose whether the genes in the cell type marker file are given as Gene Symbols or Ensembl Gene IDs
 p15_fileFormat=
-p15_flag=--gene.annotation.database\=
-p15_name=gene.annotation.database
-p15_numValues=0..1
-p15_optional=on
-p15_prefix=--gene.annotation.database\=
-p15_prefix_when_specified=--gene.annotation.database\=
+p15_flag=--cell.type.marker.id\=
+p15_name=cell.type.marker.id.type
+p15_numValues=1..1
+p15_optional=
+p15_prefix=--cell.type.marker.id\=
+p15_prefix_when_specified=--cell.type.marker.id\=
 p15_type=java.lang.String
-p15_value=
-
+p15_value=SYMBOL\=Gene Symbol;ENSEMBL\=Ensembl Gene ID
 
 p16_MODE=
 p16_TYPE=TEXT
-p16_default_value=0
-p16_description=Whether to compute UMAP True/False.
+p16_default_value=
+p16_description=This can be either "org.Hs.eg.db" (https\://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html) or "org.Mm.eg.db" (https\://bioconductor.org/packages/release/data/annotation/html/org.Mm.eg.db.html). This annotation database is used to convert the gene names we've provided in the marker file to the gene ids we've used as the index in our data. If this is left blank, an exact match between the marker file and the gene indices is expected.
 p16_fileFormat=
-p16_flag=
-p16_name=compute.umap
-p16_numValues=1..1
-p16_optional=
-p16_prefix=
-p16_prefix_when_specified=
+p16_flag=--gene.annotation.database\=
+p16_name=gene.annotation.database
+p16_numValues=0..1
+p16_optional=on
+p16_prefix=--gene.annotation.database\=
+p16_prefix_when_specified=--gene.annotation.database\=
 p16_type=java.lang.String
-p16_value=0\=no;1\=yes
+p16_value=
 
 
 p17_MODE=
 p17_TYPE=TEXT
 p17_default_value=0
-p17_description=Whether to compute TSNE True/False.
+p17_description=Whether to compute UMAP True/False.
 p17_fileFormat=
 p17_flag=
-p17_name=compute.tsne
+p17_name=compute.umap
 p17_numValues=1..1
 p17_optional=
 p17_prefix=
@@ -277,47 +275,62 @@ p17_value=0\=no;1\=yes
 
 p18_MODE=
 p18_TYPE=TEXT
-p18_default_value=
-p18_description=Subset to the top N highly variable genes
+p18_default_value=0
+p18_description=Whether to compute TSNE True/False.
 p18_fileFormat=
-p18_flag=--n.high.variance.genes\=
-p18_name=n.high.variance.genes
-p18_numValues=0..1
-p18_optional=on
-p18_prefix=--n.high.variance.genes\=
-p18_prefix_when_specified=--n.high.variance.genes\=
+p18_flag=
+p18_name=compute.tsne
+p18_numValues=1..1
+p18_optional=
+p18_prefix=
+p18_prefix_when_specified=
 p18_type=java.lang.String
-p18_value=
+p18_value=0\=no;1\=yes
 
 
 p19_MODE=
 p19_TYPE=TEXT
-p19_default_value=0
-p19_description=Whether to perform normalization True/False. This step is performed after filtering if filtering is on
+p19_default_value=
+p19_description=Subset to the top N highly variable genes
 p19_fileFormat=
-p19_flag=
-p19_name=normalize
-p19_numValues=1..1
-p19_optional=
-p19_prefix=
-p19_prefix_when_specified=
+p19_flag=--n.high.variance.genes\=
+p19_name=n.high.variance.genes
+p19_numValues=0..1
+p19_optional=on
+p19_prefix=--n.high.variance.genes\=
+p19_prefix_when_specified=--n.high.variance.genes\=
 p19_type=java.lang.String
-p19_value=0\=no;1\=yes
+p19_value=
 
 
 p20_MODE=
 p20_TYPE=TEXT
 p20_default_value=0
-p20_description=Whether to perform annotation True/False. 
+p20_description=Whether to perform normalization True/False. This step is performed after filtering if filtering is on
 p20_fileFormat=
 p20_flag=
-p20_name=annotate
+p20_name=normalize
 p20_numValues=1..1
 p20_optional=
 p20_prefix=
 p20_prefix_when_specified=
 p20_type=java.lang.String
 p20_value=0\=no;1\=yes
+
+
+p21_MODE=
+p21_TYPE=TEXT
+p21_default_value=0
+p21_description=Whether to perform annotation True/False. 
+p21_fileFormat=
+p21_flag=
+p21_name=annotate
+p21_numValues=1..1
+p21_optional=
+p21_prefix=
+p21_prefix_when_specified=
+p21_type=java.lang.String
+p21_value=0\=no;1\=yes
 
 
 privacy=public

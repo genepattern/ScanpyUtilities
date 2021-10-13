@@ -112,6 +112,12 @@ do
         echo "gene annotation database: ${GENE_ANNO_DB}"
         ;;
     
+
+        --cell.type.marker.id=*)
+        CELL_TYPE_MARKER_ID_TYPE="${i#*=}"
+        echo "cell type marker id type: ${CELL_TYPE_MARKER_ID_TYPE}"
+        ;;
+
         --normalize=*)
         NORMALIZE="${i#*=}"
         echo "normalize: ${NORMALIZE}"
@@ -199,7 +205,7 @@ if [ ! -z ${CELL_TYPE_MARKER_FILE} ]; then
     echo "cell type indentification output: ${FULL_OUTPUT}"
     echo "cell type marker file: ${CELL_TYPE_MARKER_FILE}"
     cp ${DATA_FILE} ${FULL_OUTPUT}
-    Rscript ${SRC_PATH}/identify_cell_types.R ${FULL_OUTPUT} ${CELL_TYPE_MARKER_FILE} ${GENE_ANNO_DB}
+    Rscript ${SRC_PATH}/identify_cell_types.R ${FULL_OUTPUT} ${CELL_TYPE_MARKER_FILE} ${GENE_ANNO_DB} ${CELL_TYPE_MARKER_ID_TYPE}
     exitOnError $? "Error during cell type identification"
     DATA_FILE=${FULL_OUTPUT}    
 fi

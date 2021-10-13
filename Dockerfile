@@ -40,7 +40,7 @@ RUN R -e 'BiocManager::install("DelayedArray")'
 RUN R -e 'BiocManager::install("DelayedMatrixStats")'
 RUN R -e 'BiocManager::install("org.Hs.eg.db")'
 RUN R -e 'BiocManager::install("org.Mm.eg.db")'
-RUN R -e 'remotes::install_github("cole-trapnell-lab/garnett")'
+RUN R -e 'remotes::install_github("cole-trapnell-lab/garnett", ref="monocle3")'
 
 RUN echo "Here goes"
 

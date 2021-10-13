@@ -12,7 +12,7 @@
   "parameters": ["genes.min.counts", "genes.max.counts",  "genes.min.cells", "genes.max.cells"]},
 {"name": "Cell Type Identification", "hidden": true,
   "description":"Run the cell type identification pipeline provided in the R package garnett. This pipeline expects a non-normalized count matrix along with a cell type marker file. It trains a classifier based on the the marker genes provided and adds a cell type annotation to each cell in the data set based on this classifier. The module will extract the count matrix from the h5ad data file and create a new h5ad file with the added annotations. For more information see https://cole-trapnell-lab.github.io/garnett/docs/.",
-  "parameters": ["cell.type.marker.file", "gene.annotation.database"]},
+  "parameters": ["cell.type.marker.file", "gene.annotation.database", "cell.type.marker.id.type"]},
 {"name": "Normalization", "hidden": true,        
   "description":"Run the single-cell normalization pipeline provided in the R package scran. This pipeline expects a count matrix along with a cluster index for each cell. The clustering is done as a prior step, in this case using the Louvain clustering algorithm implemented in scanpy. Then the data is divided by the size factors computed from scran for each cell. Finally, a log transformation is applied to the data to give the final normalized output. This is stored in a new h5ad file.",
   "parameters": ["normalize"]},
