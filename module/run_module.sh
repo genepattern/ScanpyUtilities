@@ -266,3 +266,7 @@ if [[ "${COMPUTE_CLUSTERING}" -eq "leiden" || "${COMPUTE_CLUSTERING}" -eq "" ]];
     exitOnError $? "Error creating clusters."
     DATA_FILE=${FULL_OUTPUT}
 fi
+
+if [[ "${COMPUTE_UMAP}" -eq 1 || "${COMPUTE_TSNE}" -eq 1 ]]; then
+    eval "${PY_EXEC} ${SRC_PATH}/plot.py ${DATA_FILE} ${OUTPUT_BASENAME} ${COMPUTE_UMAP} ${COMPUTE_TSNE} ${COMPUTE_CLUSTERING}"
+fi
