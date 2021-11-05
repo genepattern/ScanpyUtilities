@@ -157,11 +157,21 @@ do
 done
 
 if [ ! -z ${GENOME} ] && [ ${DATA_FILE: -3} == ".h5" ]; then
+    SOURCE_TYPE="h5"
     echo "-- converting from H5 to H5AD format --"
     FULL_OUTPUT="${OUTPUT_BASENAME}.h5ad"
-    eval "${PY_EXEC} ${SRC_PATH}/convert_to_h5ad.py ${DATA_FILE} ${GENOME} ${FULL_OUTPUT}"
+    eval "${PY_EXEC} ${SRC_PATH}/convert_to_h5ad.py ${SOURCE_TYPE} ${DATA_FILE} ${FULL_OUTPUT} ${GENOME}"
     exitOnError $? "Error during conversion from h5 to h5ad format."
     DATA_FILE=${FULL_OUTPUT}
+elif [ ${DATA_FILE: -5} == ".loom" ]; then
+    SOURCE_TYPE="loom"
+    echo "-- converting from LOOM to H5AD format --"
+    FULL_OUTPUT="${OUTPUT_BASENAME}.h5ad"
+    eval "${PY_EXEC} ${SRC_PATH}/convert_to_h5ad.py ${SOURCE_TYPE} ${DATA_FILE} ${FULL_OUTPUT}"
+    exitOnError $? "Error during conversion from loom to h5ad format."
+    DATA_FILE=${FULL_OUTPUT}
+else
+    exitOnError $? "-- specified input file is not supported --"
 fi
 
 if [ ! -z ${ANNOTATE} ] && [ "${ANNOTATE}" -eq 1 ]; then
