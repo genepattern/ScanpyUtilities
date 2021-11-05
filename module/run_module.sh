@@ -148,6 +148,16 @@ do
         echo "compute tsne: ${COMPUTE_TSNE}"
         ;;
 
+        --compute.clustering=*)
+        COMPUTE_CLUSTERING="${i#*=}"
+        echo "compute clustering: ${COMPUTE_CLUSTERING}"
+        ;;
+
+        --clustering.resolution=*)
+        CLUSTERING_RESOL="${i#*=}"
+        echo "compute clustering: ${CLUSTERING_RESOL}"
+        ;;
+
         *)
             echo "ERROR: unrecognized option"
             echo "${i%=*}"
@@ -247,5 +257,12 @@ if [[ "${COMPUTE_UMAP}" -eq 1 || "${COMPUTE_TSNE}" -eq 1 ]]; then
     FULL_OUTPUT="${OUTPUT_BASENAME}_dim_reduce.h5ad"
     eval "${PY_EXEC} ${SRC_PATH}/dimension_reduction.py ${DATA_FILE} ${FULL_OUTPUT} ${COMPUTE_UMAP} ${COMPUTE_TSNE}"
     exitOnError $? "Error creating umap or tsne plots."
+    DATA_FILE=${FULL_OUTPUT}
+fi
+
+if [[ "${COMPUTE_CLUSTERING}" -eq "leiden" || "${COMPUTE_CLUSTERING}" -eq "" ]]; then
+    FULL_OUTPUT="${OUTPUT_BASENAME}_dim_reduce_clustered.h5ad"
+    eval "${PY_EXEC} ${SRC_PATH}/cluster.py ${DATA_FILE} ${FULL_OUTPUT} ${COMPUTE_CLUSTERING} ${CLUSTERING_RESOL}"
+    exitOnError $? "Error creating clusters."
     DATA_FILE=${FULL_OUTPUT}
 fi
