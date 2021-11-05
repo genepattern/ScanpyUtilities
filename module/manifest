@@ -345,7 +345,7 @@ p22_optional=
 p22_prefix=
 p22_prefix_when_specified=
 p22_type=java.lang.String
-p22_value=none\=none;leiden\=leiden;louvian\=louvian
+p22_value=none\=none;leiden\=run_leiden;louvian\=run_louvian
 
 
 p22_MODE=
