@@ -4,7 +4,7 @@ LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:0038
 
 author=Tom Sherman, Johns Hopkins University, modified by Anthony Castanza, UCSD, wrapped as a module by Ted Liefeld, UCSD School of Medicine.
 categories=Single-Cell
-commandLine=bash /build/run_module.sh --python.executable\=python --src.path\=/build --data.file\=<data.file> <mtGenes> --output.basename\=<output.basename> <genome> --annotate\=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <cells.max.mt.pct> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> <gene.annotation.database> <cell.type.marker.id.type> --normalize\=<normalize> <n.high.variance.genes> --compute.umap\=<compute.umap> --compute.tsne\=<compute.tsne> 
+commandLine=bash /build/run_module.sh --python.executable\=python --src.path\=/build --data.file\=<data.file> <mtGenes> --output.basename\=<output.basename> <genome> --annotate\=<annotate> <cells.min.counts> <cells.max.counts> <cells.min.genes> <cells.max.genes> <cells.max.mt.pct> <genes.min.counts> <genes.max.counts> <genes.min.cells> <genes.max.cells> <cell.type.marker.file> <gene.annotation.database> <cell.type.marker.id.type> --normalize\=<normalize> <n.high.variance.genes> --compute.umap\=<compute.umap> --compute.tsne\=<compute.tsne> --compute.clustering\=<compute.clustering> --clustering.resolution\=<clustering.resolution>
 
 cpuType=any
 description=Scanpy preprocessing of an h5 single cell RNASeq dataset
@@ -331,6 +331,36 @@ p21_prefix=
 p21_prefix_when_specified=
 p21_type=java.lang.String
 p21_value=0\=no;1\=yes
+
+
+p22_MODE=
+p22_TYPE=TEXT
+p22_default_value=none
+p22_description=Whether to perform clustering, and if so which method. 
+p22_fileFormat=
+p22_flag=--compute.clustering\=
+p22_name=compute.clustering
+p22_numValues=1..1
+p22_optional=
+p22_prefix=
+p22_prefix_when_specified=
+p22_type=java.lang.String
+p22_value=none\=none;leiden\=run_leiden;louvian\=run_louvian
+
+
+p22_MODE=
+p22_TYPE=Floating Point
+p22_default_value=1.0
+p22_description=Resolution to use if running leiden or louvain clustering on the dataset.
+p22_fileFormat=
+p22_flag=--clustering.resolution\=
+p22_name=clustering.resolution
+p22_numValues=1..1
+p22_optional=
+p22_prefix=
+p22_prefix_when_specified=
+p22_type=java.lang.Float
+p22_value=
 
 
 privacy=public

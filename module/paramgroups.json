@@ -21,5 +21,8 @@
   "parameters": ["n.high.variance.genes"]},
 {"name": "Dimension Reduction", "hidden": true,
   "description":"Compute UMAP or TSNE coordinates for visualization.",
-  "parameters": ["compute.umap", "compute.tsne"]}
+  "parameters": ["compute.umap", "compute.tsne"]},
+{"name": "Clustering", "hidden": true,
+  "description":"Compute leiden or louvian clusters.",
+  "parameters": ["clustering.method", "clustering.resolution"]}
 ]
