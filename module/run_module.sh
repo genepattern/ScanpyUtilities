@@ -260,7 +260,7 @@ if [[ "${COMPUTE_UMAP}" -eq 1 || "${COMPUTE_TSNE}" -eq 1 ]]; then
     DATA_FILE=${FULL_OUTPUT}
 fi
 
-if [[ "${COMPUTE_CLUSTERING}" -eq "leiden" || "${COMPUTE_CLUSTERING}" -eq "" ]]; then
+if [[ "${COMPUTE_CLUSTERING}" == "leiden" || "${COMPUTE_CLUSTERING}" == "louvain" ]]; then
     FULL_OUTPUT="${OUTPUT_BASENAME}_dim_reduce_clustered.h5ad"
     eval "${PY_EXEC} ${SRC_PATH}/cluster.py ${DATA_FILE} ${FULL_OUTPUT} ${COMPUTE_CLUSTERING} ${CLUSTERING_RESOL}"
     exitOnError $? "Error creating clusters."

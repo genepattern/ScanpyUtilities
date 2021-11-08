@@ -1,4 +1,4 @@
-#Tue, 28 Sep 2021 15:04:16 -0700
+#Mon, 08 Nov 2021 08:31:24 -0800
 JVMLevel=
 LSID=urn\:lsid\:broad.mit.edu\:cancer.software.genepattern.module.analysis\:00382\:999999999
 
@@ -15,7 +15,7 @@ minGenePatternVersion=3.9.13
 name=ScanpyUtilities
 
 os=any
-job.docker.image=genepattern/scanpyutilities\:0.97
+job.docker.image=genepattern/scanpyutilities\:0.98
 
 job.cpuCount=4
 job.memory=32 Gb
@@ -333,19 +333,6 @@ p21_type=java.lang.String
 p21_value=0\=no;1\=yes
 
 
-p22_MODE=
-p22_TYPE=TEXT
-p22_default_value=none
-p22_description=Whether to perform clustering, and if so which method. 
-p22_fileFormat=
-p22_flag=--compute.clustering\=
-p22_name=compute.clustering
-p22_numValues=1..1
-p22_optional=
-p22_prefix=
-p22_prefix_when_specified=
-p22_type=java.lang.String
-p22_value=none\=none;leiden\=run_leiden;louvian\=run_louvian
 
 
 p22_MODE=
@@ -362,9 +349,24 @@ p22_prefix_when_specified=
 p22_type=java.lang.Float
 p22_value=
 
+p23_MODE=
+p23_TYPE=TEXT
+p23_default_value=
+p23_description=Whether to and type of clustering to perform (leiden, louvain, none) .
+p23_fileFormat=
+p23_flag=
+p23_name=compute.clustering
+p23_numValues=1..1
+p23_optional=
+p23_prefix=
+p23_prefix_when_specified=
+p23_type=java.lang.String
+p23_value=\=none;leiden\=leiden;louvain\=louvain
+
+
 
 privacy=public
-publicationDate=09/28/2021 15\:04 
+publicationDate=11/08/2021 08\:31 
 quality=${quality.level}
 requiredPatchLSIDs=
 requiredPatchURLs=
