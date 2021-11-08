@@ -25,9 +25,11 @@ if int(sys.argv[3]) == 1:
 if int(sys.argv[4]) == 1:
     if clustering_method != "none":
         print("Plotting tSNE with" + clustering_method + "clusters.")
-        sc.pl.tsne(adata, color=clustering_method, show=False)
-        plt.savefig(output_file + "_" + clustering_method + '_clusters_tSNE.png', bbox_inches="tight")
+        with plt.rc_context():
+            sc.pl.tsne(adata, color=clustering_method, show=False)
+            plt.savefig(output_file + "_" + clustering_method + '_clusters_tSNE.png', bbox_inches="tight")
     else:
         print("Plotting tSNE, no clustering specified.")
-        sc.pl.tsne(adata, show=False)
-        plt.savefig(output_file + '_tSNE.png', bbox_inches="tight")
+        with plt.rc_context():
+            sc.pl.tsne(adata, show=False)
+            plt.savefig(output_file + '_tSNE.png', bbox_inches="tight")
