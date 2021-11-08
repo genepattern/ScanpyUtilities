@@ -8,7 +8,7 @@ output_file = sys.argv[2]
 print("clustering input: ", input_file)
 adata = sc.read(input_file)
 
-print("-- computing clusters with method " + sys.argv[3]= " and resolution " + str(sys.argv[4]) + " --")
+print("-- computing clusters with method " + sys.argv[3] + " and resolution " + str(sys.argv[4]) + " --")
 
 if sys.argv[3] == "louvain":
     sc.tl.louvain(adata, resolution=float(sys.argv[4]))
