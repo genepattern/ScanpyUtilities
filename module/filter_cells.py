@@ -31,11 +31,23 @@ if max_genes > 0:
     print("filtering out cells with more than", max_genes, "genes")
     sc.pp.filter_cells(adata, max_genes=max_genes)
     print("cells remaining: ", adata.shape[0])
+
 if mito_file != "SKIP":
     with open(mito_file) as f:
         mito_genes = f.read().splitlines()
     mito_genes = list(set([re.sub('-I$', '', sub) for sub in mito_genes]))
     adata.var['mt'] = [x in mito_genes for x in adata.var_names]
+else:
+    if 'gene_name' in adata.var:
+        gene_name_uppercase = [x.upper() for x in list(adata.var['gene_name'])]
+    else:
+        gene_name_uppercase = [x.upper() for x in list(adata.var.index)]
+    is_mt = list(map(lambda x:x.startswith('MT-'),gene_name_uppercase))
+    mito_genes = list(set(adata.var.index[is_mt]))
+    if len(mito_genes) > 0:
+        adata.var['mt'] = [x in mito_genes for x in adata.var_names]
+
+if 'mt' in adata.var:
     print("filtering out cells with less than", mito_pct, "% mitochondrial fraction")
     sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
     adata = adata[adata.obs.pct_counts_mt < mito_pct, :]
