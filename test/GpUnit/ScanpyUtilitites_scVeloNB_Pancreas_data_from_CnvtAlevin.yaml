@@ -1,0 +1,42 @@
+#
+# ant -f ${GPUNIT_HOME}/build.xml -Dgpunit.diffStripTrailingCR:"--strip-trailing-cr" -Dgp.host:"beta.genepattern.org" -Dgp.url:"https://beta.genepattern.org" -Dgp.user:"ted-dev" -Dgp.password:"" -Dgpunit.testfolder:`pwd` gpunit
+#
+name: ScanpyFiltering
+module: ScanpyUtilities
+params:
+    data.file: "https://datasets-genepattern-org.s3.amazonaws.com/data/module_support_files/ScanpyQC/NB_ConvertAlevin-E14_5_Pancreas.h5ad"
+    mtGenes: "./inputs/NB_ConvertAlevin-gencode.vM26.annotation.velocity.93bp_flank.mtGenes.txt"
+    output.basename: <data.file_basename>
+    genome: ""
+    cells.min.counts: "5000"
+    cells.max.counts: "30000"
+    cells.min.genes: "1000"
+    cells.max.genes: "6000"
+    cells.max.mt.pct: "5"
+    genes.min.counts: ""
+    genes.max.counts: ""
+    genes.min.cells: "10"
+    genes.max.cells: ""
+    cell.type.marker.file: ""
+    cell.type.marker.id.type: "Gene Symbol"
+    gene.annotation.database: ""
+    compute.umap: "yes"
+    compute.tsne: "no"
+    n.high.variance.genes: "4000"
+    normalize: "yes"
+    annotate: "yes"
+    clustering.resolution: "1.0"
+    compute.clustering: "leiden"
+assertions:
+    jobStatus: success
+    files:
+        "E14_5_Pancreas_annotated.h5ad":  !!null
+        "E14_5_Pancreas_cell_filter.h5ad":  !!null
+        "E14_5_Pancreas_dim_reduce.h5ad": !!null
+        "E14_5_Pancreas_dim_reduce_clustered.h5ad": !!null
+        "E14_5_Pancreas_gene_filter.h5ad": !!null
+        "E14_5_Pancreas_high_variance_genes_annotated.h5ad": !!null
+        "E14_5_Pancreas_high_variance_genes_subset.h5ad": !!null
+        "E14_5_Pancreas_leiden_clusters_UMAP.png": !!null
+        "E14_5_Pancreas_normalized.h5ad": !!null
+
