@@ -1,4 +1,5 @@
 # copyright 2017-2018 Regents of the University of California and the Broad Institute. All rights reserved.
+# builds genepattern/scanpyutilities:0.100
 FROM r-base:4.0.3
 
 MAINTAINER Ted Liefeld <jliefeld@cloud.ucsd.edu>
@@ -7,15 +8,23 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 RUN mkdir /build
 
+# for install log files - check here for log files when debugging
+RUN mkdir /logs
+
 # install system dependencies
 RUN apt-get update --yes
-RUN apt-get install build-essential --yes
-RUN apt-get install libcurl4-gnutls-dev --yes
-RUN apt-get install libhdf5-serial-dev --yes
+RUN apt-get install build-essential=12.9 --yes | tee /logs/build-essential_install.log
+# 7.74.0-1.3+b1 was listed as version installed, but can't apt-get install this version - it's just curl, so moving on - see log for details
+RUN apt-get install libcurl4-gnutls-dev --yes | tee /logs/libcurl4-gnutls-dev_install.log
+RUN apt-get install libhdf5-serial-dev --yes | tee /logs/llibhdf5-serial-dev_install.log
+# RUN apt-get install libhdf5-dev=1.10.6+repack-5 --yes << wouldn't install by version - see log above for details
 #RUN apt-get install libigraph0-dev --yes
-RUN apt-get install libxml2-dev --yes
-RUN apt-get install libtool --yes
-RUN apt-get install flex bison --yes
+RUN apt-get install libxml2-dev --yes | tee /logs/libxml2-dev_install.log
+# RUN apt-get install libxml2-dev=2.9.10+dfsg-6.7 --yes << wouldn't install by version see log above for details
+RUN apt-get install libtool=2.4.6-15 --yes | tee /logs/libtool_install.log
+RUN apt-get install flex=2.6.4-8 --yes | tee /logs/flex_install.log
+RUN apt-get install bison --yes | tee /logs/bison_install.log
+# RUN apt-get install bison=2:3.7.6+dfsg-1 --yes << wouldn't install by version see log above for details
 
 # install python with conda
 RUN mkdir /conda && \
@@ -25,22 +34,24 @@ RUN mkdir /conda && \
 ENV PATH="/opt/conda/bin:${PATH}"
 
 # install R dependencies
-RUN R -e 'install.packages("remotes")'
-RUN R -e 'install.packages("BiocManager")'
-RUN R -e 'BiocManager::install()'
-RUN R -e 'BiocManager::install("XML")'
-RUN R -e 'BiocManager::install("matrixStats")'
-RUN R -e 'BiocManager::install("RSQLite")'
-RUN R -e 'BiocManager::install("rhdf5")'
-RUN R -e 'BiocManager::install("igraph")'
-RUN R -e 'BiocManager::install("sva")'
-RUN R -e 'BiocManager::install("scran")'
-RUN R -e 'BiocManager::install("monocle")'
-RUN R -e 'BiocManager::install("DelayedArray")'
-RUN R -e 'BiocManager::install("DelayedMatrixStats")'
-RUN R -e 'BiocManager::install("org.Hs.eg.db")'
-RUN R -e 'BiocManager::install("org.Mm.eg.db")'
-RUN R -e 'remotes::install_github("cole-trapnell-lab/garnett", ref="monocle3")'
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.0.tar.gz', repo=NULL, type='source')" | tee /logs/remotes_install.log
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/BiocManager_1.30.16.tar.gz', repo=NULL, type='source')" | tee /logs/BiocManager_install.log
+# RUN R -e "'Bioc"Manager::install()'
+RUN R -e "BiocManager::install('XML', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('matrixStats', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('RSQLite', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('rhdf5', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('igraph', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('sva', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('scran', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('monocle', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('DelayedArray', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('DelayedMatrixStats', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('org.Hs.eg.db', version = '3.12', ask = FALSE)"
+RUN R -e "BiocManager::install('org.Mm.eg.db', version = '3.12', ask = FALSE)"
+#this should probably be locked down to a tag, but I'm not sure which is correct...
+
+RUN R -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')"
 
 RUN echo "Here goes"
 
