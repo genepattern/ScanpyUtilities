@@ -8,6 +8,7 @@ params:
     "output.basename": "donor_5"
     "normalize":  "yes"
     "n.high.variance.genes": "3000"
+    "compute.clustering": "leiden"
     "compute.umap": "yes"
     "compute.tsne": "yes"
 assertions:
