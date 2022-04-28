@@ -30,13 +30,13 @@ params:
 assertions:
     jobStatus: success
     files:
-        "E14_5_Pancreas_annotated.h5ad":  !!null
-        "E14_5_Pancreas_cell_filter.h5ad":  !!null
-        "E14_5_Pancreas_dim_reduce.h5ad": !!null
-        "E14_5_Pancreas_dim_reduce_clustered.h5ad": !!null
-        "E14_5_Pancreas_gene_filter.h5ad": !!null
-        "E14_5_Pancreas_high_variance_genes_annotated.h5ad": !!null
-        "E14_5_Pancreas_high_variance_genes_subset.h5ad": !!null
-        "E14_5_Pancreas_leiden_clusters_UMAP.png": !!null
-        "E14_5_Pancreas_normalized.h5ad": !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_annotated.h5ad":  !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_cell_filter.h5ad":  !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_dim_reduce.h5ad": !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_dim_reduce_clustered.h5ad": !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_gene_filter.h5ad": !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_high_variance_genes_annotated.h5ad": !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_high_variance_genes_subset.h5ad": !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_leiden_clusters_UMAP.png": !!null
+        "NB_ConvertAlevin-E14_5_Pancreas_normalized.h5ad": !!null
 
