@@ -35,7 +35,7 @@ ENV PATH="/opt/conda/bin:${PATH}"
 
 # install R dependencies
 RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.0.tar.gz', repo=NULL, type='source')" | tee /logs/remotes_install.log
-RUN R -e "install.packages('https://cran.r-project.org/src/contrib/BiocManager_1.30.16.tar.gz', repo=NULL, type='source')" | tee /logs/BiocManager_install.log
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/BiocManager/BiocManager_1.30.16.tar.gz', repo=NULL, type='source')" | tee /logs/BiocManager_install.log
 # RUN R -e "'Bioc"Manager::install()'
 RUN R -e "BiocManager::install('XML', version = '3.12', ask = FALSE)"
 RUN R -e "BiocManager::install('matrixStats', version = '3.12', ask = FALSE)"
