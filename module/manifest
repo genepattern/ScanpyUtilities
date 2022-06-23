@@ -351,7 +351,7 @@ p22_value=
 
 p23_MODE=
 p23_TYPE=TEXT
-p23_default_value=
+p23_default_value=\ 
 p23_description=Whether to and type of clustering to perform (leiden, louvain, none) .
 p23_fileFormat=
 p23_flag=
@@ -361,8 +361,7 @@ p23_optional=on
 p23_prefix=
 p23_prefix_when_specified=
 p23_type=java.lang.String
-p23_value=\=none;leiden\=leiden;louvain\=louvain
-
+p23_value=\ \=none;leiden\=leiden;louvain\=louvain
 
 
 privacy=public
