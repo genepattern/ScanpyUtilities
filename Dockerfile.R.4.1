@@ -91,7 +91,6 @@ RUN pip --version
 RUN R --version
 
 RUN R -e "devtools::install_github('cole-trapnell-lab/monocle3')"
-RUN R -e "remotes::install_github('cole-trapnell-lab/garnett', ref='monocle3')"
 
 # default command
 CMD ["python", "--version"]
